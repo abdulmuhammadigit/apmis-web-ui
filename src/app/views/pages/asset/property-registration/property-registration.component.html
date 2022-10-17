@@ -1,0 +1,104 @@
+<div>
+	<kt-portlet>
+		<kt-portlet-header [title]="'کارت ثبت مالکیت'">
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<div>
+				<div class="kt-form">
+					<legend class="text-bold">جهت ایجاد کارت ثبت مالکیت از گزینه های ذیل استفاده نمائید</legend>
+					<form [formGroup]="searchForm">
+						<div class="row">
+							<!-- <div class="form-group col-md-4">
+                                <label> نمبر رسید<span *ngIf="isControlHasError('itemRequestCode','required')"
+                                        class="text-danger">*</span></label>
+                                <div class="input-group mb-2">
+                                    <input type="hidden" class="form-control" formControlName="itemReceiptId">
+                                    <input type="text" class="form-control" formControlName="itemReceiptCode">
+                                    <div class="input-group-prepend">
+                                        <button (click)="searchEmployee()" type="button"
+                                            class="btn btn-outline-secondary">
+                                            <span class="fa fa-list"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> -->
+							<div class="form-group col-md-3">
+								<label class="col-form-label">کارمند</label>
+								<div class="input-group-prepend">
+									<input type="text" class="form-control" readonly formControlName="employeeText">
+									<input type="hidden" formControlName="employeeId" />
+									<button (click)="searchEmployee()" type="button" class="btn btn-outline-secondary">
+										<span class="fa fa-user"></span>
+									</button>
+								</div>
+
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-md-12">
+								<button (click)="search()" class="btn btn-primary btn-bold "
+									matTooltip="جستجوی مشخصات">جستجو
+									<i class="fa fa-search"></i></button>
+
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</kt-portlet-body>
+	</kt-portlet>
+	<div class="table-responsive">
+		<table class="table  table-bordered table-head-solid table-hover" style="max-height: 500px !important;">
+			<thead>
+				<th class="font-weight-bold">شماره</th>
+				<th class="font-weight-bold">جنس</th>
+				<th class="font-weight-bold">مشخصات جنس</th>
+				<th class="font-weight-bold">سریال نمبر </th>
+				<th class="font-weight-bold">تک نمبر </th>
+				<th class="font-weight-bold">پرنت</th>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of searchList; let i = index">
+					<td>{{ i + 1}}</td>
+					<td>{{item.item}}</td>
+					<td>{{item.itemDetail}}</td>
+					<td>{{item.serialNumber}}</td>
+					<td>{{item.tagNumber}}</td>
+					<td><button (click)="print(item.itemDistributedSpecificationId)"
+							class="btn btn-primary btn-bold ">پرنت <i class="fa fa-print"></i></button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!--
+    <table class="table table-bordered table-responsive table-head-solid table-hover">
+        <thead>
+            <th class="font-weight-bold">مشخصات جنس </th>
+            <th class="font-weight-bold">قیمت حین مواصلت:</th>
+            <th class="font-weight-bold">مدت تخمینی دوام:</th>
+            <th class="font-weight-bold"> نمبربرچسپ</th>
+            <th class="font-weight-bold"> نمبر مسلسل </th>
+            <th class="font-weight-bold"> حالت </th>
+            <th class="font-weight-bold"> تاریخ </th>
+            <th class="font-weight-bold"> انتخاب </th>
+
+
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of searchList; let i = index">
+				<td>{{item.name}}</td>
+				<td>{{item.categoryText}}</td>
+				<td>{{item.unitText}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.categoryText}}</td>
+				<td>{{item.unitText}}</td>
+				<td>{{item.unitText}}</td>
+
+				<td>
+					 <button type="button" class="btn btn-sm btn-table btn-outline-primary"
+                        (click)="editItem(item.id)">ویرایش<i class="flaticon2-edit"></i></button> -->
+</div>
+<ng-template ktComponentHost>
+
+</ng-template>

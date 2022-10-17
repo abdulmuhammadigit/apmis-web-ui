@@ -1,0 +1,50 @@
+<kt-portlet [class.kt-hidden]="onOperation">
+	<kt-portlet-header [title]="'مدیریت مسولیت ها'">
+		<ng-container ktPortletTools>
+			<button (click)="create()" class="btn btn-default btn-labeled btn-square">
+				<b><i class="icon-plus3"></i></b>
+				<span>مسولیت جدید</span>
+			</button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<form [formGroup]="searchForm" (ngSubmit)="search()">
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label class="col-form-label">اسم مسولیت</label>
+						<input type="text" class="form-control" formControlName="name">
+					</div>
+				</div>
+				<div class="row text-right">
+					<button class="btn btn-outline-primary btn-labeled-right"><span>جستجو</span><b><i
+								class="icon-search4"></i></b></button>
+				</div>
+			</form>
+		</div>
+		<hr>
+		<div class="row">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>شماره</th>
+						<th>اسم مسولیت</th>
+						<th>عملیات</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let usr of searchResultList">
+						<td>{{ usr.id }}</td>
+						<td>{{ usr.name }}</td>
+						<td>
+							<button (click)="edit(usr.id)" type="button"><i class="icon-database-edit2"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+<ng-template ktComponentHost>
+
+</ng-template>

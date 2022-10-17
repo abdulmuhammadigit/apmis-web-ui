@@ -1,0 +1,84 @@
+<div [class.kt-hidden]="onOperation">
+    <kt-portlet>
+        <kt-portlet-header [title]="'جستجو اجناس لیلام'">
+            <ng-container ktPortletTools>
+                <button (click)="createAuction()" class="btn btn-outline-primary btn-bold ">لیلام جدید <i
+                        class="fa fa-save"></i></button>
+            </ng-container>
+        </kt-portlet-header>
+        <kt-portlet-body>
+            <div class="kt-form">
+                <legend class="text-bold">جهت جستجو فورم لیلام به اساس گزینه های ذیل استفاده نمائید </legend>
+                <form [formGroup]="searchAuctionForm">
+                    <div class="kt-form__section kt-form__section--first">
+                        <div class="form-group kt-form__group row">
+                            <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                                <label class="col-form-label">تفصیلات جنس </label>
+                                <div class="input-group-prepend">
+                                    <input type="text" class="form-control" readonly formControlName="itemDetailText">
+                                    <button (click)="searchItemDetail()" type="button"
+                                        class="btn btn-outline-secondary">
+                                        <span class="fa fa-archive"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                                <label class="col-form-label"> سال </label>
+                                <ng-select autocorrect="true" formControlName="fiscalYearId" [virtualScroll]="true"
+                                    bindLabel="name" bindValue="id" [clearable]="false">
+                                    <ng-option *ngFor="let years of fiscalyear" [value]="years.id">{{years.shamsiYear}}
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button (click)="searchAuction()" class="btn btn-primary btn-bold ">جستجو <i
+                                        class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </kt-portlet-body>
+    </kt-portlet>
+    <table class="table table-bordered table-responsive table-head-solid table-hover">
+        <thead>
+            <tr>
+                <th class="font-weight-bold">شماره</th>
+                <th class="font-weight-bold">تفصیلات جنس</th>
+                <th class="font-weight-bold">قیمت</th>
+                <!-- <th class="font-weight-bold">قیمت گذاری هیَت</th>
+                <th class="font-weight-bold">قیمت نهایی</th> -->
+                <th class="font-weight-bold"> تاریخ</th>
+                <th class="font-weight-bold">مقدار</th>
+                <th class="font-weight-bold">سال</th>
+                <th class="font-weight-bold">وظیعت</th>
+                <th class="font-weight-bold">عملیه ها</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let auc of auctionSearchList; let i = index">
+                <td>{{ i + 1}}</td>
+                <td>{{auc.itemDetailText}}</td>
+                <td>{{auc.price}}</td>
+                <!-- <td>{{auc.pricingBoard}}</td>
+                <td>{{auc.finalPrice}}</td> -->
+                <td>{{auc.date}}</td>
+                <td>{{auc.quantity}}</td>
+                <td>{{auc.fiscalYearText}}</td>
+                <td>{{auc.statusText}}</td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary" (click)="editAuction(auc.id)">ویرایش
+                    </button>
+
+                    <button type="button" class="btn btn-sm btn-outline-primary" (click)="boardDecission(auc.id)">نظر
+                        کمیسیون
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template ktComponentHost>
+</ng-template>

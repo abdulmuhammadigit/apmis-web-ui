@@ -1,0 +1,61 @@
+<div [class.kt-hidden]="onOperation">
+	<kt-portlet>
+		<kt-portlet-header [title]="'جستجو واحد'">
+			<ng-container ktPortletTools>
+				<button (click)="createUnit()" class="btn btn-outline-primary btn-bold " matTooltip="ایجاد واحد جدید">
+					واحد جدید <i class="fa fa-save"></i></button>
+			</ng-container>
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<div>
+				<div class="kt-form">
+					<form [formGroup]="unitSearchForm">
+						<div class="row">
+							<div class="form-group col-md-3">
+								<label class="col-form-label">واحد</label>
+								<input type="text" formControlName="name" class="form-control">
+							</div>
+						</div>
+						<hr>
+
+						<div class="row">
+							<div class="col-md-12">
+								<button (click)="searchUnit()" class="btn btn-primary btn-bold "
+									matTooltip="جستجوی واحد">جستجو
+									<i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</kt-portlet-body>
+	</kt-portlet>
+	<div class="row">
+		<div class="table-responsive">
+			<table class="table table-bordered table-head-solid table-hover" style="max-height: 500px !important;">
+				<thead>
+					<th class="font-weight-bold">شماره</th>
+					<th class="font-weight-bold">نام واحد</th>
+					<th class="font-weight-bold"> انتخاب </th>
+
+				</thead>
+				<tbody>
+					<tr *ngFor="let unit of unitSearchList; let i = index">
+						<td>{{ i + 1}}</td>
+						<td>{{unit.name}}</td>
+						<td>
+							<button type="button" class="btn btn-sm btn-table btn-outline-primary"
+								(click)="editUnit(unit.id)">ویرایش</button>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<ng-template ktComponentHost>
+
+</ng-template>

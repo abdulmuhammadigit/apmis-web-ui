@@ -1,0 +1,113 @@
+<kt-portlet [class.kt-hidden]="onOperation">
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-outline-primary btn-bold ">جستجو <i
+					class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<legend class="text-bold">جهت کنترول اجناس توزیع شده از صفحه ذیل استفاده نمائید</legend>
+			<form [formGroup]="itemDistributionForm">
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label class="col-form-label">کود نمبر </label>
+						<input type="text" formControlName="code" class="form-control"
+							placeholder=" ایجاد کود توسط سیستم" readonly>
+					</div>
+					<div class="form-group col-md-3">
+						<label class="col-form-label"> نمبر درخواست</label>
+						<div class="input-group mb-2">
+							<input type="hidden" class="form-control" formControlName="itemRequestId">
+							<input type="text" class="form-control" formControlName="itemRequestCode" readonly>
+						</div>
+					</div>
+					<!-- <div class="form-group col-md-2">
+				                        <label class="col-form-label"> نمبر تکت</label>
+				                        <input type="text" formControlName="documentNumber" class="form-control" readonly>
+				                    </div> -->
+
+					<div class="form-group col-md-3">
+						<label class="col-form-label"> تاریخ شمسی </label>
+						<dp-date-picker dir="rtl" mode="day" formControlName="shamsiDate" placeholder="شمسی"
+							theme="dp-material" [config]="dateConfigShamsi" (keypress)="$event.preventDefault()"
+							(onChange)="setdate($event);" #shamsiDate readonly>
+						</dp-date-picker>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label class="col-form-label"> تاریخ میلادی </label>
+						<dp-date-picker dir="rtl" mode="day" placeholder="میلادی" theme="dp-material"
+							[config]="dateConfigGregorian" (keypress)="$event.preventDefault()"
+							(onChange)="setShamsiDate($event);" formControlName="date" #date readonly>
+						</dp-date-picker>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label class="col-form-label">تشریحات</label>
+						<ckeditor formControlName="description" [config]="{language:'fa'}" [editor]="Editor"></ckeditor>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12">
+						<label class="col-form-label"> اجناس درخواستی </label>
+						<table class="table table-bordered table-head-solid table-hover">
+							<thead>
+								<tr>
+									<th class="font-weight-bold">شماره </th>
+									<th class="font-weight-bold">نام جنس</th>
+									<th class="font-weight-bold">مقدار درخواست شده</th>
+									<th class="font-weight-bold">مقدار جنس</th>
+									<th class="font-weight-bold">واحد</th>
+									<th class="font-weight-bold">مقدار باقی مانده</th>
+									<th class="font-weight-bold">حالت</th>
+								</tr>
+							</thead>
+							<tbody formArrayName="itemDistributionDetailModelList">
+								<tr *ngFor="let form of itemDistributionDetailModelList.controls; let i=index"
+									[formGroupName]="i">
+									<td>{{ i+1 }}</td>
+									<td>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<input type="text" class="form-control" formControlName="itemDetailText"
+													readonly>
+											</div>
+										</div>
+									</td>
+									<td>
+										<input type="number" formControlName="requestedQuantity" class="form-control"
+											readonly>
+									</td>
+									<td>
+										<input type="number" formControlName="quantity" class="form-control" readonly>
+									</td>
+									<td>
+										<input type="text" formControlName="unitText" class="form-control" readonly>
+									</td>
+									<td>
+										<input type="number" formControlName="remain" class="form-control" readonly>
+									</td>
+									<td>
+										<input type="text" formControlName="status" class="form-control" readonly>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12">
+						<kt-process-tracking class="pull-left"></kt-process-tracking>
+					</div>
+				</div>
+			</form>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+
+
+<ng-template ktComponentHost></ng-template>

@@ -1,0 +1,72 @@
+<kt-portlet>
+    <kt-portlet-body>
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">جستجو کارمند </h5>
+            <button type="button" class="close text-left " aria-label="Close" (click)="activeModel.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="kt-form">
+            <legend class="text-bold">جهت جستجو و دریافت کارمند از اساس گزینه های ذیل استفاده نمائید</legend>
+            <form [formGroup]="searchEmployeeForm">
+                <div class="kt-form__section kt-form__section--first">
+                    <div class="form-group kt-form__group row">
+                        <div class="col-md-3">
+                            <label class="col-form-label">کود نمبر </label>
+                            <input type="text" formControlName="code" class="form-control" placeholder="کود را بنوسید">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="col-form-label">نام </label>
+                            <input type="text" formControlName="name" class="form-control">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="col-form-label"> تخلص </label>
+                            <input type="text" formControlName="lastName" class="form-control">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="col-form-label"> نام پدر </label>
+                            <input type="text" formControlName="fatherName" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button (click)="searchEmployee()" class="btn btn-primary btn-bold "
+                            matTooltip="جستجوی کارمند">جستجو <i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <hr>
+            </form>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12 table-responsive">
+                <table class="table  table-head-solid table-striped table-hover" style="max-height: 500px !important;">
+                    <thead>
+                        <th> شماره</th>
+                        <th>کود نمبر</th>
+                        <th>نام</th>
+                        <th>تخلص</th>
+                        <th>نام پدر</th>
+                        <th>عملیه ها</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let emp of employeeSearchList; let i = index">
+                            <td>{{ i + 1}}</td>
+                            <td>{{emp.code}}</td>
+                            <td>{{emp.name}}</td>
+                            <td>{{emp.lastName}}</td>
+                            <td>{{emp.fatherName}}</td>
+                            <td>
+                                <button type="button" class="btn btn-table btn-sm btn-outline-info"
+                                    (click)="selectEmployee(emp)">انتخاب
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </kt-portlet-body>
+</kt-portlet>

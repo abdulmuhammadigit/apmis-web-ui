@@ -1,0 +1,64 @@
+<kt-portlet [class.kt-hidden]="onOperation">
+	<kt-portlet-header [title]="'مدیریت کاربر'">
+		<ng-container ktPortletTools>
+			<button (click)="createUser()" class="btn btn-default btn-labeled btn-square" matTooltip="Create new User">
+				<b><i class="icon-plus3"></i></b>
+				<span>کاربر جدید</span>
+			</button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<form [formGroup]="searchForm" (ngSubmit)="searchUsers()">
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label class="col-form-label">اسم کاربر</label>
+						<input type="text" class="form-control" formControlName="username">
+					</div>
+					<div class="form-group col-md-3">
+						<label class="col-form-label">اسم مکمل کاربر</label>
+						<input type="text" class="form-control" formControlName="fullName">
+					</div>
+					<div class="form-group col-md-3">
+						<label class="col-form-label">ایمیل آدرس</label>
+						<input type="email" class="form-control" formControlName="email">
+					</div>
+				</div>
+				<div class="row text-right">
+					<button class="btn btn-outline-primary btn-labeled-right"><span>جستجو</span><b><i
+								class="icon-search4"></i></b></button>
+				</div>
+			</form>
+		</div>
+		<hr>
+		<div class="row">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>شماره</th>
+						<th>اسم کاربر</th>
+						<th>اسم مکمل کاربر</th>
+						<th>ایمیل آدرس</th>
+						<th>عملیات</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let usr of usersList">
+						<td>{{ usr.id }}</td>
+						<td>{{ usr.username }}</td>
+						<td>{{ usr.fullName }}</td>
+						<td>{{ usr.email }}</td>
+						<td>
+							<button (click)="editUser(usr.id)" type="button"><i
+									class="icon-database-edit2"></i></button>
+							<button (click)="resetPassword(usr.id)" type="button"><i class="icon-reset"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+<ng-template ktComponentHost>
+
+</ng-template>

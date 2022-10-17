@@ -1,0 +1,81 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-basic-title">مشخصات اجناس</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+
+	<div class="kt-form">
+		<form [formGroup]="itemPricingForm">
+			<div class="row">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th class="font-weight-bold"> شماره </th>
+							<!-- <th class="font-weight-bold"> جنس </th> -->
+							<th class="font-weight-bold"> جزئیات جنس </th>
+							<th class="font-weight-bold"> سریال نمبر </th>
+							<th class="font-weight-bold"> نمبر برچسب </th>
+							<!-- <th class="font-weight-bold"> موقیعت جنس </th> -->
+							<th class="font-weight-bold"> تاریخ انقضاء </th>
+							<!-- <th class="font-weight-bold"> روز های استهلاک </th> -->
+							<th class="font-weight-bold"> قیمت قبلی </th>
+							<th class="font-weight-bold"> قیمت جنس </th>
+							<th class="font-weight-bold"> عملیه ها </th>
+						</tr>
+					</thead>
+					<tbody formArrayName="ItemReallocationBoardModel">
+						<tr *ngFor="let item of  ItemReallocationBoardModel.controls; let i = index"
+							[formGroupName]="i">
+							<td>{{ i + 1}}</td>
+							<!-- <td>
+								<input formControlName="item" class="form-control">
+							</td> -->
+							<td>
+								<input formControlName="itemDetail" class="form-control" readonly>
+							</td>
+
+							<td>
+								<input formControlName="serialNumber" class="form-control" readonly>
+							</td>
+							<td>
+								<input formControlName="tagNumber" class="form-control" readonly>
+							</td>
+							<!-- <td>
+								<input formControlName="location" class="form-control">
+							</td> -->
+							<td>
+								<input formControlName="expirationDate" class="form-control" readonly>
+							</td>
+							<!-- <td>
+								<input formControlName="depreciationDay" class="form-control">
+							</td> -->
+							<td>
+								<input formControlName="mainPrice" class="form-control" type="number" readonly>
+							</td>
+							<td>
+								<input formControlName="price" class="form-control" type="number">
+							</td>
+							<td>
+								<button (click)="submit(i)" class="btn btn-primary btn-sm btn-outline-primary">ثبت
+									<i class="fa fa-save"></i></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<hr>
+
+			<div class="row">
+				<div class="col-md-12">
+					<kt-process-tracking class="pull-left"></kt-process-tracking>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<ng-template ktComponentHost>
+
+</ng-template>

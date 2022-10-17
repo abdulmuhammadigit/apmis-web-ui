@@ -1,0 +1,196 @@
+<kt-portlet>
+    <kt-portlet-header [title]="formTitle">
+        <ng-container ktPortletTools>
+            <button (click)="cancelClick()" class="btn bg-blue-800 btn-square btn-bold">
+				<i class="fa fa-search"></i>
+				فهرست عمومی درخواست ها
+			</button>
+        </ng-container>
+    </kt-portlet-header>
+    <kt-portlet-body>
+        <div class="kt-form">
+            <form [formGroup]="requestForm">
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label class="col-form-label">کُد درخواست</label>
+                        <input type="text" formControlName="code" class="form-control" placeholder=" ایجاد کود توسط سیستم" readonly>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="col-form-label"> تاریخ درخواست (شمسی) <span
+								*ngIf="isControlHasError('shamsiDate','required')" class="text-danger">*</span></label>
+                        <div class="input-group-prepend select-input">
+                            <dp-date-picker dir="rtl" mode="day" formControlName="shamsiDate" theme="dp-material" [config]="dateService.dateConfigShamsi" (keypress)="$event.preventDefault()" (onChange)="setGregorianDate($event);" #shamsiDate>
+                            </dp-date-picker>
+                            <button (click)="dpOpen('shamsi')" type="button" for="shamsiDate" class="btn btn-default btn-square">
+								<span class="fa fa-calendar-alt"></span>
+							</button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="col-form-label"> تاریخ درخواست (میلادی)<span
+								*ngIf="isControlHasError('date','required')" class="text-danger">*</span></label>
+                        <div class="input-group-prepend select-input">
+                            <dp-date-picker dir="rtl" mode="day" theme="dp-material" [config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()" (onChange)="setShamsiDate($event);" formControlName="date" #date>
+                            </dp-date-picker>
+                            <button (click)="dpOpen('miladi')" type="button" for="date" class="btn btn-default btn-square">
+								<span class="fa fa-calendar-alt"></span>
+							</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label class="col-form-label"> درخواست کننده <span
+								*ngIf="isControlHasError('employeeText','required')"
+								class="text-danger">*</span></label>
+                        <div class="input-group-prepend select-input">
+                            <input type="text" class="form-control" readonly formControlName="employeeText" (click)="searchEmployee()">
+                            <input type="hidden" formControlName="employeeId" />
+                            <button (click)="searchEmployee()" type="button" readonly class="btn btn-default btn-square">
+								<span class="fa fa-user"></span>
+							</button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="col-form-label"> شعبه نیازمند <span
+								*ngIf="isControlHasError('department','required')" class="text-danger">*</span></label>
+                        <div class="input-group-prepend">
+                            <input type="text" class="form-control" formControlName="department">
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-3 kt-margin-bottom-20-mobile">
+														<label class="col-form-label"> شماره مکتوب </label>
+														<input type="text" formControlName="documentNumber" class="form-control">
+						</div> -->
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-form-label">ملاحظات</label>
+                        <textarea formControlName="description" class="form-control" style="resize:none;">
+						</textarea>
+                        <!-- <ckeditor  [editor]="Editor" [config]="{language:'fa'}">
+						</ckeditor> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </kt-portlet-body>
+    <kt-portlet-footer>
+        <div class="kt-form__actions">
+            <div class="row">
+                <div class="col-md-12">
+                    <button (click)="submit()" matTooltip="ثبت درخواست" class="btn bg-blue-800 btn-bold btn-square">
+						<i class="fa fa-save"></i>
+						ثبت
+						درخواست
+					</button>
+                    <button (click)="printItemRequest()" type="button" class="btn bg-blue-800 btn-bold btn-square">
+						<i class="fa fa-print"></i>
+						چاپ سند
+					</button>
+                    <kt-process-tracking class="pull-left left-most"></kt-process-tracking>
+                    <kt-upload-file class="pull-left"></kt-upload-file>
+                </div>
+            </div>
+        </div>
+    </kt-portlet-footer>
+    <kt-isd-gridview #items [columns]="columns" [rows]="rows" filterkey="itemDetailText" (itemDelete)="itemDelete($event)" (itemAdd)="itemAdd($event)" [actionslist]="['delete','add']" filterPlaceHolder="فلتر به اساس تفصیلات">
+    </kt-isd-gridview>
+</kt-portlet>
+
+<!-- <kt-portlet>
+    <kt-portlet-header [title]="'جزئیات درخواست'">
+        <ng-container ktPortletTools>
+            <button (click)="addItem()" class="btn bg-blue-800 btn-square btn-bold">
+				<i class="fa fa-plus"></i>
+				افزودن </button>
+        </ng-container>
+    </kt-portlet-header>
+    <kt-portlet-body>
+        <div class="kt-form">
+            <form [formGroup]="requestForm">
+                <div [class.kt-hidden]="hideDetail">
+                    <table class="table table-striped table-head-solid table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-per-5"> شماره اقلام </th>
+                                <th class="col-per-30">تفصیلات جنس</th>
+                                <th> مقدار </th>
+                                <th> واحد </th>
+                                <th>ملاحطات</th>
+                                <th> عدم موجودی</th>
+                                <th>عملیه ها</th>
+                            </tr>
+                        </thead>
+                        <tbody formArrayName="detailsModel">
+                            <tr *ngFor="let _ of detailsModel.controls; let i=index" [formGroupName]="i">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" readonly formControlName="itemDetailText" [class.invalid]="isDetailControlHasError('itemDetailText','required',i)">
+                                        <input type="hidden" formControlName="itemDetailId" />
+                                        <div class="input-group-prepend">
+                                            <button (click)="searchItemDetail(i)" type="button" class="btn btn-outline-secondary">
+												<span class="fa fa-archive"></span>
+											</button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" formControlName="quantity" [class.invalid]="isDetailControlHasError('quantity','required',i)" class="form-control" step="any">
+                                </td>
+                                <td>
+                                    <ng-select formControlName="unitId" [virtualScroll]="true" bindLabel="name" [class.invalid]="isDetailControlHasError('unitId','required',i)" bindValue="id" [clearable]="false">
+                                        <ng-option [value]="item.id" [disabled]="item.disabled" *ngFor="let item of unitType">
+                                            {{item.name}}
+                                        </ng-option>
+                                    </ng-select>
+                                </td>
+                                <td>
+                                    <textarea formControlName="description" class="form-control" rows="1"></textarea>
+                                </td>
+                                <td>
+                                    <span class="kt-switch kt-switch--icon-check">
+										<label>
+											<input type="checkbox" formControlName='notExistItem' />
+											<span></span>
+                                    </label>
+                                    </span>
+                                </td>
+                                <td>
+                                    <button (click)="submitDetail(i)" class="btn btn-primary">ثبت
+										<i class="fa fa-save"></i></button>
+
+                                    <button (click)="removeDetailItem(i)" type="button" class="btn btn-primary text-danger" id="remove">حذف
+										<i class="flaticon-delete"></i>
+									</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </kt-portlet-body>
+
+    <kt-portlet-footer>
+        <div class="kt-form__actions">
+            <div class="row">
+                <div class="col-md-12">
+                    <button (click)="submit()" class="btn btn-default-blue btn-bold btn-square">
+						<i class="fa fa-file-alt"></i>
+						فورم جدید
+					</button>
+                </div>
+            </div>
+        </div>
+    </kt-portlet-footer>
+</kt-portlet> -->
+
+<kt-isd-modal #addModal [modalConfig]="addModalConfig">
+    <kt-item-request-details>
+
+    </kt-item-request-details>
+</kt-isd-modal>

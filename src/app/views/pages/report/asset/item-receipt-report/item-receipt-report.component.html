@@ -1,0 +1,127 @@
+<div>
+	<kt-portlet>
+		<kt-portlet-header [title]="'گزارش احصاییوی رسید اجناس'">
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<div>
+				<div class="kt-form">
+					<legend class="text-bold">جهت دریافت گزارش رسید اجناس از گزینه های ذیل استفاده نمائید</legend>
+					<form [formGroup]="searchForm">
+						<div class="row">
+							<!-- <div class="form-group col-md-3">
+                                <label>نوعیت رسید</label>
+                                <ng-select formControlName="itemReceiptTypeId">
+                                    <ng-option [value]="itemReceiptType.id"
+                                     *ngFor="let itemReceiptType of itemReceiptTypesList">
+                                        {{itemReceiptType.name}}
+                                    </ng-option>
+                                </ng-select>
+                            </div> -->
+							<div class="form-group col-md-3">
+								<label> نوعیت تولید جنس</label>
+								<select class="form-control" formControlName="localProduct">
+									<option>---</option>
+									<option value="true">تولید داخلی</option>
+									<option value="false"> تولید خارجی</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label> تاریخ شروع </label>
+								<dp-date-picker dir="rtl" mode="day" formControlName="startDateShamsi"
+									theme="dp-material" [config]="dateService.dateConfigShamsi"
+									(keypress)="$event.preventDefault()" (onChange)="setStartGregorianDate($event);"
+									#startShamsiDate>
+								</dp-date-picker>
+							</div>
+
+							<div class="form-group col-md-3" hidden>
+								<label> تاریخ شروع به میلادی </label>
+								<dp-date-picker dir="rtl" mode="day" theme="dp-material"
+									[config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()"
+									(onChange)="setStartShamsiDate($event);" formControlName="startDate" #startDate>
+								</dp-date-picker>
+							</div>
+							<div class="form-group col-md-3">
+
+								<label> تاریخ ختم </label>
+								<dp-date-picker dir="rtl" mode="day" formControlName="endDateShamsi" theme="dp-material"
+									[config]="dateService.dateConfigShamsi" (keypress)="$event.preventDefault()"
+									(onChange)="setEndGregorianDate($event);" #endShamsiDate>
+								</dp-date-picker>
+							</div>
+
+							<div class="form-group col-md-3" hidden>
+								<label> تاریخ ختم به میلادی </label>
+								<dp-date-picker dir="rtl" mode="day" theme="dp-material"
+									[config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()"
+									(onChange)="setEndShamsiDate($event);" formControlName="endDate" #endDate>
+								</dp-date-picker>
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<button (click)="search()" class="btn btn-primary btn-bold btn-wide"
+									matTooltip="جستجوی اجناس">جستجو
+									<i class="fa fa-search"></i></button>
+							</div>
+						</div>
+						<hr>
+
+					</form>
+				</div>
+
+			</div>
+
+		</kt-portlet-body>
+	</kt-portlet>
+	<!-- <div class="panel-body">
+        <div echarts style="float: right;width: 300px;" [options]="options" [merge]="updateOptions">
+            <label class="font-weight-bold">مبلغ مجموعی</label>
+            <canvas id="myChart" width="250" height="200"></canvas>
+        </div>
+        <div echarts style="float: right;width: 300px;" [options]="options" [merge]="updateOptions">
+            <label class="font-weight-bold">تعداد رسید</label>
+            <canvas id="myChart1" width="250" height="200"></canvas>
+        </div>
+        <div echarts style="float: right;width: 300px;" [options]="options" [merge]="updateOptions">
+            <label class="font-weight-bold">تعداد اجناس</label>
+            <canvas id="myChart2" width="250" height="200"></canvas>
+        </div>
+    </div> -->
+
+	<div class="panel-body">
+		<div class="row col-md-12" style="height: 400px;">
+			<div echarts class="col-md-4" id="pipe"></div>
+			<div echarts class="col-md-4" id="pipe1"></div>
+			<div echarts class="col-md-4" id="pipe2"></div>
+		</div> -->
+
+	</div>
+	<div class="table-responsive">
+		<table class="table  table-bordered table-head-solid table-hover" style="max-height: 500px !important;">
+			<thead>
+				<th class="font-weight-bold">شماره</th>
+				<th class="font-weight-bold">نوعیت رسید</th>
+				<th class="font-weight-bold">تعداد رسیدات</th>
+				<th class="font-weight-bold">تعداد اجناس </th>
+				<th class="font-weight-bold"> مجموعه مبلغ</th>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of searchList; let i = index">
+					<td>{{ i + 1}}</td>
+					<td>{{item.name}}</td>
+					<td>{{item.itemReceiptCount}}</td>
+					<td>{{item.itemCount}}</td>
+					<td>{{item.priceTotal}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+<!-- <div class="panel-body">
+    <div echarts style="width: 1500px; height:500px;" [options]="options" id="pie">
+    </div>
+</div> -->

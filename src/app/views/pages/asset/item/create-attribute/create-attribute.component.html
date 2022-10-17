@@ -1,0 +1,59 @@
+<kt-portlet>
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn bg-teal-800 btn-bold btn-square">
+				<i class="fa fa-search"></i>
+				فهرست عمومی مشخصه ها </button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div>
+			<div class="kt-form">
+				<form [formGroup]="attributeCreateForm">
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label class="col-form-label">نام مشخصه<span *ngIf="isControlHasError('name','required')"
+									class="text-danger">*</span></label>
+							<input type="text" class="form-control" formControlName="name">
+						</div>
+						<div class="form-group col-md-2">
+							<label class="col-form-label">کتگوری اجناس<span
+									*ngIf="isControlHasError('categoryId','required')"
+									class="text-danger">*</span></label>
+							<ng-select class="form-control" formControlName="categoryId">
+								<ng-option value="">---</ng-option>
+								<ng-option *ngFor="let category of categoryList" value="{{category.id}}">
+									{{category.name}}
+								</ng-option>
+							</ng-select>
+						</div>
+						<div class="form-group col-md-2">
+							<label class="col-form-label">نوعیت معلومات<span
+									*ngIf="isControlHasError('dataTypeId','required')"
+									class="text-danger">*</span></label>
+							<ng-select class="form-control" formControlName="dataTypeId">
+								<ng-option value="">---</ng-option>
+								<ng-option *ngFor="let datatype of attributeDataTypeList" value="{{datatype.id}}">
+									{{datatype.dataTypeName}}</ng-option>
+							</ng-select>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12">
+							<button (click)="saveForm()" class="btn bg-blue-800 btn-bold btn-square">
+								<i class="fa fa-save"></i>
+								ثبت مشخصه
+							</button>
+							<button class="btn btn-default btn-bold btn-square kt-margin-l-10">
+								<i class="fa fa-window-restore"></i>
+								فورم جدید
+							</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

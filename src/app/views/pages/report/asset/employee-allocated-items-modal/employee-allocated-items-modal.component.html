@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">نمایش اجناس قید شده در جمع کارمند </h4>
+    <button type="button" class="close text-left " aria-label="Close" (click)="activeModel.dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <hr>
+    <div class="table-responsive">
+        <table class="table  table-bordered table-head-solid table-hover" style="max-height: 500px !important;">
+            <thead>
+                <th class="font-weight-bold">شماره</th>
+                <th class="font-weight-bold">جنس</th>
+                <th class="font-weight-bold">مشخصات جنس</th>
+                <th class="font-weight-bold">سریال نمبر </th>
+                <th class="font-weight-bold">تک نمبر </th>
+
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of itemSearchList; let i = index">
+                    <td>{{ i + 1}}</td>
+                    <td>{{item.item}}</td>
+                    <td>{{item.itemDetail}}</td>
+                    <td>{{item.serialNumber}}</td>
+                    <td>{{item.tagNumber}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

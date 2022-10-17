@@ -1,0 +1,120 @@
+<kt-portlet [class.kt-hidden]="onOperation">
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-outline-primary btn-bold">جستجو <i
+					class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<legend class="text-bold">جهت توزیع اجناس درخواست شده از صفحه ذیل استفاده نمائید</legend>
+			<form [formGroup]="itemDistributionForm">
+				<div class="row col-md-12">
+					<div class="form-group col-md-3">
+						<label class="col-form-label">کود نمبر </label>
+						<input type="text" formControlName="code" class="form-control"
+							placeholder=" ایجاد کود توسط سیستم" readonly>
+					</div>
+					<div class="form-group col-md-3">
+						<label class="col-form-label"> نمبر درخواست<span
+								*ngIf="isControlHasError('itemRequestCode','required')"
+								class="text-danger">*</span></label>
+						<div class="input-group mb-2">
+							<input type="hidden" class="form-control" formControlName="itemRequestId">
+							<input type="text" class="form-control" formControlName="itemRequestCode">
+							<div class="input-group-prepend">
+								<button (click)="selectItemRequest()" type="button" class="btn btn-outline-secondary">
+									<span class="fa fa-list"></span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-md-3">
+						<label class="col-form-label"> تاریخ تکت شمسی <span
+								*ngIf="isControlHasError('dateShamsi','required')" class="text-danger">*</span></label>
+						<dp-date-picker dir="rtl" mode="day" formControlName="dateShamsi" theme="dp-material"
+							[config]="dateService.dateConfigShamsi" (keypress)="$event.preventDefault()"
+							(onChange)="setGregorianDate($event);" #shamsiDate>
+						</dp-date-picker>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label class="col-form-label"> تاریخ تکت میلادی <span
+								*ngIf="isControlHasError('date','required')" class="text-danger">*</span></label>
+						<dp-date-picker dir="rtl" mode="day" theme="dp-material"
+							[config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()"
+							(onChange)="setShamsiDate($event);" formControlName="date" #date>
+						</dp-date-picker>
+					</div>
+
+
+					<div class="form-group col-md-12">
+						<label class="col-form-label">تشریحات</label>
+						<ckeditor [editor]="Editor" [config]="{language:'fa'}" formControlName="description">
+						</ckeditor>
+					</div>
+
+				</div>
+				<hr>
+
+				<div class="row">
+					<div class="col-md-12">
+						<button (click)="submit()" class="btn btn-primary btn-bold ">ثبت <i class="fa fa-save"></i></button>
+						<button [class.kt-hidden]="hideDetail" (click)="selectItem()" class="btn btn-success btn-bold ">وضع اجناس از کارت ثبت ذخیره <i class="fa fa-plus"></i></button>
+					</div>
+				</div>
+				<hr>
+				<div [class.kt-hidden]="hideDetail">
+					<div class="row">
+						<div class="col-md-12">
+							<label class="col-form-label"> اجناس برای توزیع </label>
+							<table class="table table-striped table-head-solid table-hover">
+								<thead>
+									<tr>
+										<th class="font-weight-bold col-per-5">شماره </th>
+										<th class="font-weight-bold col-per-30">نام جنس</th>
+										<th class="font-weight-bold">تعداد توزیع</th>
+										<th class="font-weight-bold">حالت</th>
+										<th class="font-weight-bold"> عملیات</th>
+									</tr>
+								</thead>
+								<tbody formArrayName="itemDistributionDetailModelList">
+									<tr *ngFor="let form of itemDistributionDetailModelList.controls; let i=index;"
+										[formGroupName]="i">
+										<td>{{ i+1 }}</td>
+										<td>
+											{{ form.value.itemDetailText }}
+										</td>
+										<td>
+											{{form.value.quantity}}
+										</td>
+										<td>{{form.value.status}}</td>
+										<td>
+											<button (click)="removeItem(i)" type="button"
+												class="btn btn-primary text-danger" id="remove">حذف
+												<i class="flaticon-delete"></i>
+											</button>
+										</td>
+							</table>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12">
+							<button (click)="newRecord()" class="btn btn-primary btn-bold">جدید <i
+									class="fa fa-window-restore"></i></button>
+							<button (click)="printForm()" type="button" class="btn btn-primary btn-bold ">پرنت <i class="fa
+															 fa-print"></i>
+							</button>
+							<kt-process-tracking class="pull-left"></kt-process-tracking>
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+
+
+<ng-template ktComponentHost></ng-template>

@@ -1,0 +1,121 @@
+<div [class.kt-hidden]="onOperation">
+	<kt-portlet>
+		<kt-portlet-header [title]="'جستجو راپور رسید'">
+			<ng-container ktPortletTools>
+				<button (click)="createItemReceipt()" class="btn btn-outline-primary btn-sm"> فورم جدید <i
+						class="fa fa-save"></i></button>
+			</ng-container>
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<legend class="text-bold">جهت جستجو و دریافت راپور رسید گزینه های ذیل را انتخاب نمائید</legend>
+			<div class="kt-form">
+				<form [formGroup]="searchForm">
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label class="col-form-label">کود نمبر </label>
+							<input type="text" class="form-control" formControlName="code">
+						</div>
+						<!-- <div class="form-group col-md-3">
+                        <label class="col-form-label">نمبر راپور</label>
+                        <input type="text" class="form-control" formControlName="documentNumber">
+                    </div> -->
+						<div class="form-group col-md-3">
+							<label class="col-form-label">بل نمبر </label>
+							<input type="text" class="form-control" formControlName="billNumber">
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12">
+							<button (click)="searchItemReceipt()" class="btn btn-primary btn-bold"
+								matTooltip="جستجو راپور رسید ها">
+								<i class="fa fa-search"></i>
+								جستجو
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</kt-portlet-body>
+
+		<div class="table-responsive">
+			<table class="table table-bordered table-head-solid table-hover">
+				<thead>
+					<tr>
+						<th class="font-weight-bold col-per-5"> شماره</th>
+						<th class="font-weight-bold col-per-20"> کود نمبر</th>
+						<!-- <th class="font-weight-bold">نمبر راپور</th>
+																			<th class="font-weight-bold"> تاریخ مکتوب</th> -->
+						<th class="font-weight-bold col-per-10"> نوعیت رسید</th>
+						<th class="font-weight-bold col-per-20"> تاریخ رسید</th>
+						<th class="font-weight-bold col-per-10"> بل نمبر </th>
+						<th class="font-weight-bold col-per-20"> نام معتمد</th>
+						<th class="font-weight-bold col-per-30"> عملیات</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let list of  itemReceiptsList; let i = index">
+						<td>{{ i + 1}}</td>
+						<td>{{ list.code}}</td>
+						<!-- <td>{{ list.documentNumber }}</td>
+																			<td>{{ list.documentDate }}</td> -->
+						<td>{{ list.itemReceiptTypeName }}</td>
+						<td>{{ list.receiveDate }}</td>
+						<td>{{ list.billNumber }}</td>
+						<td>{{ list.stockKeeperName}}</td>
+
+						<td>
+							<button *ngIf="this.sItemReciept" type="button"
+								class="btn btn-sm btn-table btn-outline-primary"
+								(click)="editItemReceipt(list.id)">ویرایش<i class="flaticon2-edit"></i></button>
+
+							<button *ngIf="this.cItemReciept" type="button"
+								class="btn btn-sm btn-table btn-outline-primary"
+								(click)="controlItemReceipt(list.id)">بررسی<i class="flaticon2-check-mark"></i></button>
+
+							<button type="button" class="btn btn-sm btn-table btn-outline-primary"
+								(click)="viewItemReceipt(list.id)">کارت ثبت ذخیره<i class="fa fa-eye"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</kt-portlet>
+	<div class="row">
+		<table class="table table-head-solid table-bordered table-hover">
+			<thead>
+				<tr>
+					<th> شماره</th>
+					<th> کود نمبر</th>
+					<th> نوعیت رسید</th>
+					<th> تاریخ رسید</th>
+					<th> بل نمبر </th>
+					<th> نام معتمد</th>
+					<th> عملیات</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let list of  itemReceiptsList; let i = index">
+					<td>{{ i + 1}}</td>
+					<td>{{ list.code}}</td>
+					<td>{{ list.itemReceiptTypeName }}</td>
+					<td>{{ list.receiveDate }}</td>
+					<td>{{ list.billNumber }}</td>
+					<td>{{ list.stockKeeperName}}</td>
+
+					<td>
+						<button class="btn" style="padding: 0px ; margin: 0px;" (click)="editItemReceipt(list.id)" *ngIf="this.sItemReciept" ngbTooltip="ویرایش" ><i class="fa fa-edit"></i></button>
+						<button class="btn" style="padding: 0px; margin: 0px;" (click)="controlItemReceipt(list.id)" *ngIf="this.cItemReciept" ngbTooltip="برسی"><i class="fa fa-eye"></i></button>
+						<button class="btn" style="padding: 0px; margin: 0px;" (click)="viewItemReceipt(list.id)" ngbTooltip=" نمایش"><i class="fa fa-print" ></i></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<ng-template ktComponentHost>
+
+</ng-template>

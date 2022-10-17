@@ -1,0 +1,119 @@
+<div>
+    <kt-portlet>
+        <kt-portlet-header [title]="'گزارش اجناس توزیع شده'">
+        </kt-portlet-header>
+        <kt-portlet-body>
+            <div>
+                <div class="kt-form">
+                    <legend class="text-bold">جهت دریافت گزارش اجناس توزیع شده از گزینه های ذیل استفاده نمائید</legend>
+                    <form [formGroup]="itemSearchForm">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label> نوعیت جنس</label>
+                                <select class="form-control" formControlName="consumable">
+                                    <option value="">---</option>
+                                    <option value="true">مصرفی</option>
+                                    <option value="false">غیر مصرفی</option>
+                                </select>
+                            </div>
+                            <!-- <div class="form-group col-md-3">
+                                <label>ریاست </label>
+                                <ng-select autocorrect="true" formControlName="orgUnitId" [virtualScroll]="true"
+                                    bindLabel="name" bindValue="id" [clearable]="false">
+                                    <ng-option *ngFor="let org of orgunit" [value]="org.id">{{org.name}}
+                                    </ng-option>
+                                </ng-select>
+                            </div> -->
+
+                            <div class="form-group col-md-3">
+                                <label> تاریخ شروع گزارش به شمسی <span
+                                        *ngIf="isControlHasError('startDateShamsi','required')"
+                                        class="text-danger">*</span></label>
+                                <dp-date-picker dir="rtl" mode="day" formControlName="startDateShamsi"
+                                    theme="dp-material" [config]="dateService.dateConfigShamsi"
+                                    (keypress)="$event.preventDefault()" (onChange)="setStartGregorianDate($event);"
+                                    #startShamsiDate>
+                                </dp-date-picker>
+                            </div>
+
+                            <div class="form-group col-md-3" hidden>
+                                <label> تاریخ شروع گزارش به میلادی<span
+                                        *ngIf="isControlHasError('startDate','required')" class="text-danger">*</span>
+                                </label>
+                                <dp-date-picker dir="rtl" mode="day" theme="dp-material"
+                                    [config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()"
+                                    (onChange)="setStartShamsiDate($event);" formControlName="startDate" #startDate>
+                                </dp-date-picker>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label> تاریخ ختم گزارش به شمسی <span
+                                        *ngIf="isControlHasError('endDateShamsi','required')"
+                                        class="text-danger">*</span></label>
+                                <dp-date-picker dir="rtl" mode="day" formControlName="endDateShamsi" theme="dp-material"
+                                    [config]="dateService.dateConfigShamsi" (keypress)="$event.preventDefault()"
+                                    (onChange)="setEndGregorianDate($event);" #endShamsiDate>
+                                </dp-date-picker>
+                            </div>
+
+                            <div class="form-group col-md-3" hidden>
+                                <label> تاریخ ختم گزارش به میلادی <span *ngIf="isControlHasError('endDate','required')"
+                                        class="text-danger">*</span></label>
+                                <dp-date-picker dir="rtl" mode="day" theme="dp-material"
+                                    [config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()"
+                                    (onChange)="setEndShamsiDate($event);" formControlName="endDate" #endDate>
+                                </dp-date-picker>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button (click)="searchItem()" class="btn btn-primary btn-bold "
+                                    matTooltip="جستجوی اجناس">جستجو
+                                    <i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </kt-portlet-body>
+    </kt-portlet>
+
+
+    <div *ngIf="isShown">
+        <div class="panel-body">
+            <!-- <div echarts style="width: 1400px; height:400px;" [options]="options" [merge]="updateOptions"></div> -->
+        </div>
+
+
+        <div class="table-responsive">
+            <table class="table  table-bordered table-head-solid table-hover" style="max-height: 500px !important;">
+                <thead>
+                    <th class="font-weight-bold">شماره</th>
+                    <th class="font-weight-bold">ریاست</th>
+                    <th class="font-weight-bold"> تعداد جنس</th>
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of itemSearchList; let i = index">
+                        <td>{{ i + 1}}</td>
+                        <td>{{item.orgUnitName}}</td>
+                        <td>{{item.count}}</td>
+                    </tr>
+                    <!-- <tr>
+                    <td>
+                        مجموعه
+                    </td>
+                    <td>
+                        2
+                    </td>
+                </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>

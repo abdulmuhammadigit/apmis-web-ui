@@ -1,0 +1,60 @@
+<kt-portlet>
+	<kt-portlet-header>
+		<ng-container ktPortletTools>
+			<button (click)="back()" class="btn btn-outline-primary btn-bold ">جستجو<i
+					class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+
+	<kt-portlet-body>
+		<div>
+			<div class="kt-form">
+				<form [formGroup]="workFlowCreateForm">
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label class="col-form-label">اسم:
+								<span *ngIf="isControlHasError('name','required')" class="text-danger">*</span>
+							</label>
+							<input type="text" formControlName="name" class="form-control">
+						</div>
+						<div class="form-group col-md-3">
+							<label class="col-form-label">موجودی:
+								<span *ngIf="isControlHasError('entityId','required')" class="text-danger">*</span>
+							</label>
+							<select class="form-control" (change)="getClassificationList(selectedEntity.value)"
+								#selectedEntity formControlName="entityId">
+								<option value="">---</option>
+								<option *ngFor="let entity of entityList" value="{{entity.id}}">
+									{{entity.code}}-{{entity.description}}</option>
+							</select>
+						</div>
+						<div class="form-group col-md-3">
+							<label class="col-form-label">طبقه بندی:
+							</label>
+							<select class="form-control" formControlName="classificationId">
+								<option value="">---</option>
+								<option *ngFor="let classification of classificationList "
+									value="{{classification.id}}">{{(classification.name)}}</option>
+							</select>
+						</div>
+						<div class="form-group col-md-3">
+							<label class="col-form-label">منبع:
+							</label>
+							<select class="form-control" formControlName="parentId">
+								<option value="">---</option>
+								<option *ngFor="let workFlow of workFlowList" value="{{workFlow.id}}">{{workFlow.name}}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<button (click)="save()" class="btn btn-primary btn-bold ">ثبت <i
+									class="fa fa-save"></i></button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

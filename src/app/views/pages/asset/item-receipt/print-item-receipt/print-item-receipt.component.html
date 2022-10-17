@@ -1,0 +1,103 @@
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-basic-title"> پرنت فورم رسید </h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+
+<body id="print-section">
+	<div class="page">
+		<div class="col-md-12">
+			<p style="text-align:right;direction: rtl;margin-top: 20px;">کود نمبر: {{code}}</p>
+			<div class="form-barcode barecode-static-width"
+				style="margin-top:20px;margin-bottom: -100px;text-align:left;">
+				<ngx-barcode [bc-value]="code" [bc-display-value]="true" [bc-format]="'CODE128'">
+				</ngx-barcode>
+			</div>
+			<table class="table table-striped table-hover">
+				<tbody>
+					<tr>
+						<th colspan="3" style="width: 33%;"> فورمه (م-۷) </th>
+						<th colspan="3" style="width: 33%;"> راپور رسیدات </th>
+						<th colspan="3" style="width: 33%;"> جمهوری اسلامی افغانستان </th>
+
+					</tr>
+					<tr>
+						<td colspan="9" style="width: 100%;">قرار مکتوب:</td>
+					</tr>
+					<tr>
+						<td colspan="4" style="width: 50%;"> نمبر راپور</td>
+						<td colspan="5" style="width: 50%;"> اداره:</td>
+					</tr>
+					<tr>
+						<td colspan="4" style="width: 50%;">تاریخ: {{date}}</td>
+						<td colspan="5" style="width: 50%;"> محل تسلیمی:
+							{{stockKeeperFullName}}</td>
+					</tr>
+					<tr>
+						<td colspan="4" style="width: 50%;"> نمبر بل: {{billNumber}} </td>
+						<td colspan="5" style="width: 50%;"> اخذ گردیده از:</td>
+					</tr>
+					<tr>
+						<td colspan="9" style="width: 100%;"> </td>
+					</tr>
+					<tr>
+						<th colspan="1" style="width: 11%;"> مقدار </th>
+						<th colspan="1" style="width: 11%;"> واحد </th>
+						<th colspan="4" style="width: 11%;"> تشریحات </th>
+						<th colspan="1" style="width: 11%;"> فیات </th>
+						<th colspan="1" style="width: 11%;"> مبلغ </th>
+						<th colspan="1" style="width: 11%;"> ملاحضات </th>
+
+					</tr>
+					<tr *ngFor="let list of  itemReceiptsList; let i = index">
+						<td colspan="1" style="width: 11%;">{{ list.baseQuantity}}</td>
+						<td colspan="1" style="width: 11%;"> {{ list.baseUnitText}}</td>
+						<td colspan="4" style="width: 11%;">{{ list.itemDetailText}} </td>
+						<td colspan="1" style="width: 11%;"> {{ list.price}}</td>
+						<td colspan="1" #sum style="width: 11%;">{{list.quantity*list.price}}</td>
+						<td colspan="1" style="width: 11%;"> {{list.description}}</td>
+
+					</tr>
+
+					<tr>
+						<td colspan="6"><span [innerHTML]="this.description"></span> </td>
+						<td colspan="1"></td>
+						<td colspan="1"></td>
+						<td colspan="1"></td>
+					</tr>
+					<tr>
+
+						<td colspan="7" style="text-align: left;">قیمت مجموعی</td>
+						<td colspan="1">{{total}}</td>
+						<td colspan="1"></td>
+					</tr>
+					<tr>
+						<td colspan="9" style="width: 100%;" align="center">تصدیق شخص تسلیم<br> تصدیق میداریم اینکه
+							اجناس با خدمات فوق الذکر تسلیم شده اجناس مذکور ...
+						</td>
+					</tr>
+					<tr>
+						<td colspan="9" style="height:10%;">امضا
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</body>
+<div class="col-md-12">
+	<button [useExistingCss]="true" type="button" class="btn btn-primary btn-bold " printSectionId="print-section"
+		ngxPrint>
+		پرنت <i class="fa fa-print"></i>
+	</button>
+</div>

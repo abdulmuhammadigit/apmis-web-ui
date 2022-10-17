@@ -1,0 +1,128 @@
+<kt-portlet>
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-default btn-labeled btn-square"><b><i
+						class="icon-arrow-left8"></i></b><span>بازگشت</span></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<form [formGroup]="userForm" class="kt-form kt-form--group-seperator-dashed">
+				<div class="kt-portlet__body">
+
+					<div class="form-group row">
+						<input type="hidden" formControlName="id">
+						<div class="col-md-4">
+							<label class="col-form-label">اسم کاربر:</label>
+							<input class='form-control' placeholder="" formControlName='username'>
+							<span *ngIf="isControlHasError('username','required')" class="form-text text-danger">اسم
+								کاربر ضروری میباشد</span>
+						</div>
+						<div class="col-md-4">
+							<label class="col-form-label">اسم مکمل کاربر :</label>
+							<input class="form-control" placeholder="" formControlName="fullName">
+							<span *ngIf="isControlHasError('fullName','required')" class="form-text text-danger">اسم
+								مکمل
+								کاربر ضروری میباشد</span>
+						</div>
+						<div class="col-md-4">
+							<label class="col-form-label">ایمیل آدرس :</label>
+							<input class="form-control" placeholder="" formControlName="email">
+							<span *ngIf="isControlHasError('email','required')" class="form-text text-danger">ایمیل آدرس
+								ضروری میباشد</span>
+							<span *ngIf="isControlHasError('email','email')" class="form-text text-danger">ایمیل آدرس
+								اشتباه میباشد</span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-4 ">
+							<label class="col-form-label">نمبر تماس :</label>
+							<input class="form-control" placeholder="" formControlName="phone">
+							<span *ngIf="isControlHasError('phone','required')" class="form-text text-danger">نمبر تماس
+								ضروری میباشد</span>
+						</div>
+						<div class="col-md-3">
+							<label class="col-form-label">مدیر</label>
+							<div>
+								<span class="kt-switch kt-switch--icon-check">
+									<label>
+										<input type="checkbox" formControlName='isAdmin' />
+										<span></span>
+									</label>
+								</span>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<label class="col-form-label">رمز عبور منقضی شده است</label>
+							<div>
+								<span class="kt-switch kt-switch--icon-check">
+									<label>
+										<input type="checkbox" formControlName='passwordExpired' />
+										<span></span>
+									</label>
+								</span>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<label class="col-form-label">غیر فعال</label>
+							<div>
+								<span class="kt-switch kt-switch--icon-check">
+									<label>
+										<input type="checkbox" formControlName='disabled' />
+										<span></span>
+									</label>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-4">
+							<label class="col-form-label">اداره:</label>
+							<ng-select [items]="instList" bindValue="id" bindLabel="name" placeholder="انتخاب نماید"
+								formControlName='institutionId'>
+
+							</ng-select>
+						</div>
+						<div class="col-md-4">
+							<label class="col-form-label">بخش عملیات:</label>
+							<ng-select [items]="opTypeList" bindValue="id" bindLabel="label" placeholder="انتخاب نماید"
+								formControlName='operationTypeId'>
+							</ng-select>
+						</div>
+						<div class="col-md-4">
+							<label class="col-form-label">نقش های کاربر:</label>
+							<ng-select [items]="rolesList" bindValue="id" bindLabel="name" [multiple]="true"
+								placeholder="انتخاب نماید" formControlName='roleIds'>
+							</ng-select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-6">
+							<label class="col-form-label">دسترسی به روند کاری:</label>
+							<ng-select [items]="stagesList" bindValue="id" bindLabel="name" groupBy="workFlow"
+								[multiple]="true" placeholder="انتخاب نماید" formControlName='stageIds'>
+							</ng-select>
+						</div>
+						<div class="col-md-4">
+							<label class="col-form-label">کارمند مربوطه:</label>
+							<ng-select [items]="employeeList" bindValue="id" bindLabel="name" placeholder="انتخاب نماید"
+								formControlName='employeeId'>
+							</ng-select>
+						</div>
+					</div>
+				</div>
+
+				<div class="kt-portlet__foot">
+					<div class="kt-form__actions">
+						<button type="button" class="btn btn-labeled btn-primary pull-right kt-margin-l-10 btn-square"
+							(click)="saveForm()">
+							<b> <i class="icon-floppy-disk"></i></b>
+							<span>ثبت</span>
+						</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

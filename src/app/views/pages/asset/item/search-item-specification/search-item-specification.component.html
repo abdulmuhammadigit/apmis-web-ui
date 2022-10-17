@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"> جستجو اجناس داغمه</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+
+    <div class="kt-form">
+        <legend class="text-bold">جهت دریافت اجناس داغمه با تمام مشخصات آن به اساس گزینه های ذیل استفاده نمائید</legend>
+        <form [formGroup]="itemSearchForm">
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label class="col-form-label">نمبر برچسپ</label>
+                    <input type="text" class="form-control" formControlName="tagNumber">
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="col-form-label">سریال نمبر</label>
+                    <input type="text" class="form-control" formControlName="serialNumber">
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="col-form-label">جزئیات</label>
+                    <input type="text" class="form-control" formControlName="detail">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button (click)="searchItem()" class="btn btn-primary btn-bold " matTooltip="جستجوی مشخصات">جستجو
+                        <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col-md-12 table-responsive">
+            <table class="table  table-bordered table-head-solid table-hover" style="max-height: 500px !important;">
+                <thead>
+                    <th class="font-weight-bold">شماره</th>
+                    <th class="font-weight-bold">نمبر برچسپ</th>
+                    <th class="font-weight-bold"> سریال نمبر</th>
+                    <th class="font-weight-bold"> موقیعت</th>
+                    <th class="font-weight-bold">جزئیات جنس</th>
+                    <th class="font-weight-bold col-per-30">قیمت</th>
+                    <th class="font-weight-bold">انتخاب</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of itemSearchList; let i = index">
+                        <td>{{ i + 1}}</td>
+                        <td>{{item.tagNumber}}</td>
+                        <td>{{item.serialNumber}}</td>
+                        <td>{{item.location}}</td>
+                        <td>{{item.itemDetail}}</td>
+                        <td>{{item.reallocatedPrice}}</td>
+
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-info" (click)="selectItem(item)">انتخاب
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

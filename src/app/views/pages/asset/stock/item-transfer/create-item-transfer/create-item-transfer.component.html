@@ -1,0 +1,83 @@
+<kt-portlet>
+	<kt-portlet-header [title]="title">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-outline-primary btn-bold">جستجو <i
+				class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<legend class="text-bold">جهت پیشنهاد اجناس از این صفحه استفاده میگردد</legend>
+			<form [formGroup]="createForm">
+				<div class="row">
+					<div class="col-md-2">
+						<label class="col-form-label">شماره مکتوب </label>
+						<input type="text" formControlName="documentNumber" class="form-control" placeholder="شماره مکتوب" >
+					</div>
+					<div class="col-md-3">
+							<label class="col-form-label"><span *ngIf="isControlHasError('department','required')" class="text-danger">*</span> کارمند </label>
+							<input type="hidden" formControlName="fromEmployeeId" />
+							<input type="text" class="form-control" formControlName="fromEmployeeText" placeholder="کارمند تسلیم دهنده "/>
+							<span (click)="selectEmployee(1)">
+								<b>	<i style="top: -28px;  float: left; padding-left: 15px;" class="icon-search4 "></i></b>
+							</span>
+					</div>
+					<div class="col-md-3">
+						<label class="col-form-label"><span *ngIf="isControlHasError('department','required')" class="text-danger">*</span> کارمند </label>
+						<input type="hidden" formControlName="toEmployeeId" />
+						<input type="text" class="form-control" formControlName="toEmployeeText"placeholder="کارمند تسلیم گیرنده "/>
+						<span (click)="selectEmployee(2)">
+								<b>	<i style="top: -28px;  float: left; padding-left: 15px;" class="icon-search4 "></i></b>
+							</span>
+					</div>
+					<div class="col-md-2">
+						<label class="col-form-label"> تاریخ شمسی <span
+							*ngIf="isControlHasError('shamsiDate','required')" class="text-danger">*</span></label>
+						<dp-date-picker dir="rtl" mode="day" formControlName="shamsiDate" theme="dp-material"
+										[config]="dateService.dateConfigShamsi" (keypress)="$event.preventDefault()"
+										(onChange)="setGregorianDate($event);" #shamsiDate placeholder="تاریخ شمسی ">
+						</dp-date-picker>
+					</div>
+					<div class="col-md-2">
+						<label class="col-form-label"> تاریخ میلادی <span *ngIf="isControlHasError('date','required')"
+																		  class="text-danger">*</span></label>
+						<dp-date-picker dir="rtl" mode="day" theme="dp-material"
+										[config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()"
+										(onChange)="setShamsiDate($event);" formControlName="date" #date placeholder="تاریخ میلادی ">
+						</dp-date-picker>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 ">
+						<label class="col-form-label"> اجناس</label>
+						<ng-select multiple="true" formControlName="items">
+							<ng-option *ngFor="let el of itemList" [value]="el.id">{{el.applicationId}}: {{el.name}}</ng-option>
+						</ng-select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label class="col-form-label">ملاحظات</label>
+						<ckeditor formControlName="description" [editor]="Editor" [config]="{language:'fa'}">
+						</ckeditor>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+  					<div class="col-md-12">
+						<button (click)="submit()" class="btn btn-primary btn-bold ">ثبت <i
+							class="fa fa-save"></i></button>
+						<button (click)="newRecord()" class="btn btn-primary btn-bold">جدید <i
+												class="fa fa-window-restore"></i></button>
+						<button (click)="printItemRequest()" type="button" class="btn btn-primary btn-bold ">پرنت <i
+												class="fa fa-print"></i>
+						</button>
+											<!-- <kt-process-tracking class="pull-left"></kt-process-tracking> -->
+						<kt-upload-file class="pull-left"></kt-upload-file>
+					</div>
+				</div>
+				<hr>
+			</form>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

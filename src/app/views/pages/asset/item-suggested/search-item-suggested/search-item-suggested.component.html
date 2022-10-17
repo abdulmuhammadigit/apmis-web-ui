@@ -1,0 +1,70 @@
+<div [class.kt-hidden]="onOperation">
+    <kt-portlet>
+        <kt-portlet-header [title]="'جستجو فورم پیشنهاد'">
+            <ng-container ktPortletTools>
+                <button (click)="createSuggestedForm()" class="btn btn-outline-primary btn-sm"> فورم جدید <i
+                        class="fa fa-save"></i></button>
+            </ng-container>
+        </kt-portlet-header>
+        <kt-portlet-body>
+            <div class="kt-form">
+                <legend class="text-bold">جهت جستجو اجناس پیشنهادی از گزینه های ذیل استفاده نمائید</legend>
+                <form [formGroup]="suggestedForm">
+                    <div class="kt-form__section kt-form__section--first">
+                        <div class="form-group kt-form__group row">
+                            <div class="col-md-3">
+                                <label class="col-form-label">کود نمبر </label>
+                                <input type="text" formControlName="code" class="form-control">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button (click)="searchSuggestedForm()" class="btn btn-primary btn-bold "
+                                    matTooltip="جستجوی فورم پیشنهادی ">جستجو
+                                    <i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </kt-portlet-body>
+    </kt-portlet>
+    <div class="table-responsive">
+        <table class="table table-bordered table-head-solid table-hover">
+            <thead>
+                <tr>
+                    <th> شماره </th>
+                    <th>کود نمبر </th>
+                    <!-- <th>شماره مکتوب</th> -->
+                    <th>کارمند</th>
+                    <th> تاریخ </th>
+                    <!-- <th>وضیعت</th> -->
+                    <th> عملیه ها</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of suggestedList; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{request.code}}</td>
+                    <!-- <td>{{request.documentNumber}}</td> -->
+                    <td>{{request.employeeName}}{{'\'' }}{{'\'' }} {{request.employeeLastName}} {{'\'' }}{{'\'' }}
+                        {{ "فرزند" }}
+                        {{request.employeeFatherName}}
+                    </td>
+                    <td>{{request.date}}</td>
+                    <!-- <td>{{request.completed}}</td> -->
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-primary"
+                            (click)="editSuggestedForm(request.id)">ویرایش</button>
+                        <!-- <button type="button" class="btn btn-sm btn-outline-primary"
+                            (click)="controlRequestForm(request.id)">بررسی</button> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<ng-template ktComponentHost>
+
+</ng-template>

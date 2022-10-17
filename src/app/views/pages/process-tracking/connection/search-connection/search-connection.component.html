@@ -1,0 +1,84 @@
+<kt-portlet [class.kt-hidden]="onOperation">
+	<kt-portlet-header>
+		<ng-container ktPortletTools>
+			<button (click)="create()" class="btn btn-outline-primary btn-bold ">اتصال جدید<i
+					class="fa fa-save"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+
+	<kt-portlet-body>
+		<div>
+			<div class="kt-form">
+				<form [formGroup]="connectionSearchForm" (ngSubmit)="search()">
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label class="col-form-label">مرحله:
+							</label>
+							<select class="form-control" formControlName="stageId">
+								<option value="">---</option>
+								<option *ngFor="let entity of stageList" value="{{entity.id}}">
+									{{"[Stage: " +( entity.name) +"]  [Type: "+(entity.stageTypeText)+"]  [WorkFlow: "+(entity.workFlowText)+"]" }}
+								</option>
+							</select>
+						</div>
+						<div class="form-group col-md-4">
+							<label class="col-form-label">به مرحله:
+							</label>
+							<select class="form-control" formControlName="toStageId">
+								<option value="">---</option>
+								<option *ngFor="let entity of stageList" value="{{entity.id}}">
+									{{"[Stage: " +( entity.name) +"]  [Type: "+(entity.stageTypeText)+"]  [WorkFlow: "+(entity.workFlowText)+"]" }}
+								</option>
+							</select>
+						</div>
+						<div class="form-group col-md-4">
+							<label class="col-form-label">Business Rule:
+							</label>
+							<select class="form-control" formControlName="businessRuleId">
+								<option value="">---</option>
+								<option *ngFor="let entity of businessRuleList " value="{{entity.id}}">{{entity.name}}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<button class="btn btn-outline-primary btn-labeled-right"><span>جستجو</span><b><i
+										class="icon-search4"></i></b></button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered table-head-solid table-hover">
+						<thead>
+							<th class="font-weight-bold">شماره</th>
+							<th class="font-weight-bold">مرحله</th>
+							<th class="font-weight-bold">به مرحله</th>
+							<th class="font-weight-bold">Business Rule</th>
+							<th class="font-weight-bold">عملیات</th>
+						</thead>
+						<tbody>
+							<tr *ngFor="let list of connectionSearchResult; let i = index">
+								<td>{{ i + 1}}</td>
+								<td>{{list.stageText}}</td>
+								<td>{{list.toStageText}}</td>
+								<td>{{list.businessRuleText}}</td>
+								<td>
+									<button type="button" class="btn btn-outline-primary" (click)="edit(list.id)">
+										<i class="flaticon2-edit"></i>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+<ng-template ktComponentHost>
+
+</ng-template>

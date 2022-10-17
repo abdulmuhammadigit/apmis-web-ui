@@ -1,0 +1,100 @@
+<kt-portlet>
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-outline-primary btn-bold ">جستجو <i
+					class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<legend class="text-bold">جهت تحویل دوباره اجناس از صفحه مذکور استفاده میگردد</legend>
+			<form [formGroup]="createForm" (submit)="create()">
+				<div class="row">
+					<div class="col-lg-3">
+						<label class="col-form-label">کود نمبر </label>
+						<input type="text" formControlName="code" class="form-control"	placeholder=" ایجاد کود توسط سیستم">
+					</div>
+					<div class="col-md-3">
+						<label class="col-form-label">کارمند مربوطه:</label>
+						<ng-select [items]="employeeList" bindValue="id" (change)="employeeChanged($event)"
+							bindLabel="name" placeholder="انتخاب نماید" formControlName='employeeId'>
+						</ng-select>
+					</div>
+					<div class="col-lg-3">
+						<label class="col-form-label"> تاریخ شمسی </label>
+						<dp-date-picker dir="rtl" mode="day" formControlName="shamsiDate" placeholder="شمسی"
+							theme="dp-material" [config]="dateConfigShamsi" (keypress)="$event.preventDefault()"
+							(onChange)="setDate($event+'');" #shamsiDate>
+						</dp-date-picker>
+					</div>
+					<div class="col-lg-3">
+						<label class="col-form-label"> تاریخ میلادی </label>
+						<dp-date-picker dir="rtl" mode="day" placeholder="میلادی" theme="dp-material"
+							[config]="dateConfigGregorian" (keypress)="$event.preventDefault()"
+							(onChange)="setShamsiDate($event+'');" formControlName="date" #date>
+						</dp-date-picker>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label class="col-form-label">تشریحات</label>
+						<ckeditor [editor]="Editor" formControlName="description" [config]="{language:'fa'}">
+						</ckeditor>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12">
+						<button type="submit" class="btn btn-primary btn-bold btn-labeled-right "> ثبت <b><i class="icon-floppy-disks"></i></b></button>
+					</div>
+				</div>
+				<hr>
+				<div [class.kt-hidden]="hideDetail">
+					<div class="row">
+						<div class="col-md-12">
+							<table class="table table-striped table-head-solid table-hover">
+								<thead>
+									<tr>
+										<th class="font-weight-bold col-per-5">شماره </th>
+										<th class="font-weight-bold col-per-10">جنس تشریحات</th>
+										<th class="font-weight-bold col-per-10">مقدار</th>
+										<th class="font-weight-bold col-per-5">انتخاب برای اعاده</th>
+									</tr>
+								</thead>
+								<tbody formArrayName="ItemReallocationDetailModel">
+									<tr *ngFor="let item of ItemReallocationDetailModel.controls; let i=index"
+										[formGroupName]="i">
+										<td>{{ i+1 }}</td>
+										<td>
+											<textarea formControlName="itemDetailText" class="form-control"></textarea>
+										</td>
+										<td>
+											<input formControlName="quantity" class="form-control" readonly>
+										</td>
+										<td>
+											<button type="button" class="btn btn-sm btn-outline-info"
+												(click)="selectItem(item)">انتخاب
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12">
+							<button type="button" (click)="print()" class="btn btn-primary">پرنت
+								<i class="fa fa-print"></i></button>
+							<button (click)="newRecord()" class="btn btn-primary btn-bold ">جدید <i
+									class="fa fa-window-restore"></i></button>
+
+							<kt-process-tracking class="pull-left"></kt-process-tracking>
+
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

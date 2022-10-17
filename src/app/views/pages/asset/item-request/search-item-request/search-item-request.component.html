@@ -1,0 +1,76 @@
+<div [class.kt-hidden]="onOperation">
+    <kt-portlet>
+        <kt-portlet-header [title]="'فهرست درخواست اجناس'">
+            <ng-container ktPortletTools>
+                <button *ngIf="this.sItemReciept" (click)="createRequestForm()" ngbTooltipClass="kt-tooltip" placement="top" ngbTooltip="ایجاد درخواست" class="btn bg-blue-800 btn-square btn-bold" matTooltip="create new attribute">
+					<i class="fa fa-plus"></i>
+					درخواست جدید
+				</button>
+            </ng-container>
+        </kt-portlet-header>
+        <kt-portlet-body>
+            <div class="kt-form search-form">
+                <form [formGroup]="RequestForm">
+                    <div class="kt-form__section kt-form__section--first">
+                        <div class="form-group kt-form__group row">
+                            <div class="col-md-3">
+                                <input type="text" formControlName="code" placeholder="کُد درخواست" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </kt-portlet-body>
+
+        <kt-portlet-footer>
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button (click)="searchRequestForm()" ngbTooltipClass="kt-tooltip" placement="top" ngbTooltip="جستجو درخواست ها" class="btn bg-blue-800 btn-bold btn-square">
+							<i class="fa fa-search"></i>
+							دریافت معلومات
+						</button>
+                    </div>
+                </div>
+            </div>
+        </kt-portlet-footer>
+
+        <kt-isd-gridview [columns]="columns" [rows]="searchResult" filterkey="employee" (itemSelected)="itemSelected($event)" (itemUpdate)="itemUpdate($event)" [selectionTitle]="['code', 'employee', 'date']" [actionslist]="['view', 'edit']" filterPlaceHolder="فلتر به اساس نام کارمند">
+        </kt-isd-gridview>
+    </kt-portlet>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-head-solid table-hover">
+            <thead>
+                <tr>
+                    <th>شماره</th>
+                    <th>کود نمبر</th>
+                    <th>کارمند</th>
+                    <th>تاریخ</th>
+                    <th>عملیه ها</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of f9requestList; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ request.code }}</td>
+                    <td>
+                        {{ request.employeeName }}{{ "'" }}{{ "'" }} {{ request.employeeLastName }} {{ "'" }}{{ "'" }} {{ "فرزند" }} {{ request.employeeFatherName }}
+                    </td>
+                    <td>{{ request.date }}</td>
+                    <td>
+                        <button *ngIf="this.sItemReciept" class="btn" style="padding: 0px; margin: 0px" (click)="editRequestForm(request.id)" ngbTooltip="ویرایش">
+							<i class="fa fa-edit"></i>
+						</button>
+
+                        <button *ngIf="this.cItemReciept" class="btn" style="padding: 0px; margin: 0px" (click)="controlRequestForm(request.id)" ngbTooltip="برسی">
+							<i class="fa fa-eye"></i>
+						</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template ktComponentHost> </ng-template>

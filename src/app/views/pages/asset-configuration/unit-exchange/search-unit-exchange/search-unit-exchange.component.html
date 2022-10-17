@@ -1,0 +1,70 @@
+<div [class.kt-hidden]="onOperation">
+	<kt-portlet>
+		<kt-portlet-header [title]="'جستجو تبدیل واحد'">
+			<ng-container ktPortletTools>
+				<button (click)="createUnitExchange()" class="btn btn-outline-primary btn-bold "
+					matTooltip="ایجاد تبدیل واحد جدید  ">
+					تبدیل واحد جدید <i class="fa fa-save"></i></button>
+			</ng-container>
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<div>
+				<div class="kt-form">
+					<form [formGroup]="unitExchangeSearchForm">
+						<div class="row">
+							<div class="form-group col-md-3">
+								<label>واحد <span *ngIf="isControlHasError('toUnitId','required')"
+										class="text-danger">*</span></label>
+								<ng-select formControlName="toUnitId">
+									<ng-option [value]="unit.id" *ngFor="let unit of unitList">
+										{{unit.name}}
+									</ng-option>
+								</ng-select>
+							</div>
+						</div>
+						<hr>
+
+						<div class="row">
+							<div class="col-md-12">
+								<button (click)="searchUnitExchange()" class="btn btn-primary btn-bold "
+									matTooltip="جستجوی سال مالی">جستجو
+									<i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</kt-portlet-body>
+	</kt-portlet>
+	<div class="row">
+		<div class="col-md-12 table-responsive">
+			<table class="table  table-head-solid table-striped table-hover" style="max-height: 500px !important;">
+				<thead>
+					<th class="font-weight-bold"> مقدار</th>
+					<th class="font-weight-bold"> واحد </th>
+					<th class="font-weight-bold"> به واحد </th>
+					<th class="font-weight-bold">جنس</th>
+					<th class="font-weight-bold"> عملیه ها </th>
+
+				</thead>
+				<tbody>
+					<tr *ngFor="let unit of unitExchangeSearchList; let i = index">
+						<td>{{unit.quantity}}</td>
+						<td>{{unit.unitText}}</td>
+						<td>{{unit.toUnitText}}</td>
+						<td>{{unit.itemText}}</td>
+						<td>
+							<button type="button" class="btn btn-sm btn-table btn-outline-primary"
+								(click)="editUnitExchange(unit.id)">ویرایش</button>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<ng-template ktComponentHost>
+
+</ng-template>

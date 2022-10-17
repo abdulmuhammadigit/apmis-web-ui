@@ -1,0 +1,92 @@
+<div class="modal-body">
+	<div class="kt-form">
+		<form [formGroup]="itemSearchForm">
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label class="col-form-label">کتگوری</label>
+					<ng-select class="form-control" formControlName="categoryId" #category class="form-control"
+						(change)="loadItem($event)">
+						<ng-option value="">---</ng-option>
+						<ng-option *ngFor="let category of categoryList" value="{{category.id}}">
+							{{category.name}}
+						</ng-option>
+					</ng-select>
+				</div>
+				<div class="form-group col-md-4">
+					<label class="col-form-label">اجناس</label>
+					<ng-select formControlName="itemId" [virtualScroll]="true" class="form-control" bindLabel="name"
+						bindValue="id" [clearable]="true">
+						<ng-option [value]="item.id" [disabled]="item.disabled" *ngFor="let item of itemList">
+							{{item.name}}
+						</ng-option>
+					</ng-select>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- 
+	<hr>
+	<div class="row">
+		<div class="col-md-12 ">
+			<table class="table  table-bordered table-head-solid table-hover" style="max-height: 500px !important;">
+				<thead>
+					<th class="font-weight-bold">شماره</th>
+					<th class="font-weight-bold">کتگوری</th>
+					<th class="font-weight-bold">نام جنس</th>
+					<th class="font-weight-bold">واحد</th>
+					<th class="font-weight-bold">کود جنس</th>
+					<th class="font-weight-bold col-per-30">جزییات</th>
+					<th class="font-weight-bold">نوعیت جنس</th>
+					<th class="font-weight-bold">بیلانس</th>
+					<th class="font-weight-bold">انتخاب</th>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of itemSearchList; let i = index">
+						<td>{{ i + 1}}</td>
+						<td>{{item.categoryText}}</td>
+						<td>{{item.nameText}}</td>
+						<td>{{item.unitText}}</td>
+						<td>{{item.code}}</td>
+						<td>{{item.detail}}</td>
+						<div *ngIf="item.consumable; then thenBlock else elseBlock"></div>
+						<ng-template #thenBlock>
+							<td>مصرفی</td>
+						</ng-template>
+						<ng-template #elseBlock>
+							<td>غیر مصرفی</td>
+						</ng-template>
+						<td>{{item.balance}}</td>
+						<td>
+							<button (click)="selectItem(item)" ngbTooltip="انتخاب"><i
+									class="fa icon-select2"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div> -->
+</div>
+<div class="modal-footer">
+	<div class="row">
+		<div class="col-md-3">
+			<button (click)="searchItem()" matTooltip="جستجو جنس ها" class="btn bg-blue-800 btn-bold btn-square">
+				<i class="fa fa-search"></i>
+				دریافت معلومات </button>
+
+			<button (click)="selectItem()" matTooltip="تائید جنس انتخاب شده" *ngIf="hasSelected"
+				class="btn bg-success-800 btn-bold btn-square" style="margin-right: 5px;">
+				<i class="fa fa-check"></i>
+				تائید و انتخاب
+			</button>
+		</div>
+		<div class="col-md-9">
+			<h5 class="footer-title">
+				{{grdSelectedItem.title}}
+			</h5>
+		</div>
+	</div>
+</div>
+
+<kt-isd-gridview [columns]="columns" [limits]="5" (itemSelected)="grdOnItemSelect($event)" [rows]="searchResult"
+	filterPlaceHolder="جستجو به اساس نام جنس">
+</kt-isd-gridview>

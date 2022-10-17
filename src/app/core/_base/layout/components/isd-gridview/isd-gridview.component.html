@@ -1,0 +1,43 @@
+<div class="ngx-datatable-action">
+    <div class="row">
+        <div class="col-md-4">
+
+            <input type="text" *ngIf="_filter" class="form-control ngx-datatable-filter-input" (keyup)="filterTable($event)" placeholder="{{_filterPlaceholder}}" />
+        </div>
+        <div class="col-md-8">
+            <div class="grd-toolbar">
+                <div class="ngx-table-btns" *ngIf="_actions">
+                    <button #deletebttn type="button" *ngIf="_actionlist['delete'] && _isItemSelected" matTooltip="حذف" (click)="deleteItem($event)" ngbTooltipClass="kt-tooltip" placement="top" ngbTooltip="حذف" class="btn btn-outline-hover-danger btn-elevate btn-icon btn-square pull-left">
+                        <i class="flaticon-delete"></i>
+                    </button>
+                    <button #editbttn type="button" matTooltip="تغییر" *ngIf="_actionlist['edit'] && _isItemSelected" (click)="updateItem($event)" ngbTooltipClass="kt-tooltip" placement="top" ngbTooltip="تغییر" class="btn btn-outline-hover-primary btn-elevate btn-icon btn-square pull-left">
+                        <i class="flaticon-edit-1"></i></button>
+
+                    <button #viewbttn type="button" matTooltip="نمایش" *ngIf="_actionlist['view'] && _isItemSelected" ngbTooltipClass="kt-tooltip" placement="top" ngbTooltip="نمایش" class="btn btn-outline-hover-primary btn-elevate btn-icon btn-square pull-left">
+                        <i class="flaticon2-open-text-book"></i></button>
+                    <button #printbttn type="button" matTooltip="چاپ" *ngIf="_actionlist['print'] && _isItemSelected" ngbTooltipClass="kt-tooltip" placement="top" ngbTooltip="چاپ" class="btn btn-outline-hover-primary btn-elevate btn-icon btn-square pull-left">
+                        <i class="flaticon2-print"></i></button>
+                    <button #addbttn type="button" matTooltip="جدید" (click)="addItem($event)" *ngIf="_actionlist['add']" ngbTooltipClass="kt-tooltip" placement="top" ngbTooltip="جدید" class="btn btn-outline-hover-success btn-elevate btn-icon btn-square pull-left">
+                        <i class="flaticon2-plus"></i></button>
+
+                    <button #okbttn type="button" (click)="okItem($event)" *ngIf="_actionlist['ok'] && _isItemSelected" ngbTooltipClass="kt-tooltip" placement="top" ngbTooltip="تائید" class="btn btn-outline-hover-success btn-elevate btn-icon btn-square pull-left">
+                        <i class="flaticon2-check-mark"></i></button>
+
+                </div>
+                <h5 *ngIf="_isItemSelected" class="grid-highlights text-right">
+                    {{_title}}
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-datatable #viewtable [columnMode]="'force'" *ngIf="!_editable" [limit]="_limited" [selectionType]="'single'" [selected]="_selectedlist" (select)="onRowSelect($event)" class="bootstrap" [footerHeight]="50" [messages]="_message" [rows]="_rows.value"
+    [columns]="_columns">
+</ngx-datatable>
+
+<ng-template #chkTmpl let-row="row" let-value="value" ngx-datatable-cell-template>
+    <label class="kt-checkbox kt-checkbox--bold kt-checkbox--disabled kt-checkbox--info">
+        <input type="checkbox" [attr.checked]="!value ? 'checked' : null" disabled> موجود است
+        <span></span>
+    </label>
+</ng-template>

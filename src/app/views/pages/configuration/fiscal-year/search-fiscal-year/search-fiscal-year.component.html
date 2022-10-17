@@ -1,0 +1,82 @@
+<div [class.kt-hidden]="onOperation">
+	<kt-portlet>
+		<kt-portlet-header [title]="'جستجو سال مالی'">
+			<ng-container ktPortletTools>
+				<button (click)="createFiscalyear()" class="btn btn-outline-primary btn-bold "
+					matTooltip="ایجاد سال مالی جدید">
+					سال مالی جدید <i class="fa fa-save"></i></button>
+			</ng-container>
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<div>
+				<div class="kt-form">
+					<form [formGroup]="fiscalYearSearchForm">
+						<div class="row">
+							<div class="form-group col-md-3">
+								<!-- <label>سال مالی<span *ngIf="isControlHasError('shamsiYear','required')"
+                                    class="text-danger">*</span></label>
+                            <input formControlName="shamsiYear" class="form-control"> -->
+								<label> سال مالی<span *ngIf="isControlHasError('shamsiYear','required')"
+										class="text-danger">*</span></label>
+								<ng-select formControlName="shamsiYear">
+									<ng-option class="form-control" [value]="year" *ngFor="let year of shamsiYearList">
+										{{year}}
+									</ng-option>
+								</ng-select>
+							</div>
+						</div>
+
+						<hr>
+
+						<div class="row">
+							<div class="col-md-12">
+								<button (click)="searchFiscalyear()" class="btn btn-primary btn-bold "
+									matTooltip="جستجوی سال مالی">جستجو
+									<i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</kt-portlet-body>
+	</kt-portlet>
+	<div class="row">
+		<div class="col-md-12 table-responsive">
+			<table class="table  table-head-solid table-striped table-hover" style="max-height: 500px !important;">
+				<thead>
+					<th class="font-weight-bold">شماره</th>
+					<th class="font-weight-bold"> سال شمسی</th>
+					<th class="font-weight-bold"> شروع سال </th>
+					<th class="font-weight-bold"> ختم سال </th>
+					<th class="font-weight-bold"> سال جاری؟ </th>
+					<th class="font-weight-bold"> عملیه ها </th>
+
+				</thead>
+				<tbody>
+					<tr *ngFor="let year of fiscalYearSearchList; let i = index">
+						<td>{{ i + 1}}</td>
+						<td>{{year.shamsiYear}}</td>
+						<td>{{year.startDate}}</td>
+						<td>{{year.endDate}}</td>
+						<div *ngIf="year.currentFiscalYear; then thenBlock else elseBlock"></div>
+						<ng-template #thenBlock>
+							<td>بلی</td>
+						</ng-template>
+						<ng-template #elseBlock>
+							<td> خیر</td>
+						</ng-template>
+						<td>
+							<button type="button" class="btn btn-sm btn-outline-primary"
+								(click)="editFiscalyear(year.id)">ویرایش</button>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<ng-template ktComponentHost>
+
+</ng-template>

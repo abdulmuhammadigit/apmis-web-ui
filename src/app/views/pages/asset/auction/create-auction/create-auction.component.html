@@ -1,0 +1,100 @@
+<kt-portlet>
+    <kt-portlet-header [title]="formTitle">
+        <ng-container ktPortletTools>
+            <button (click)="cancelClick()" class="btn btn-outline-primary btn-bold ">جستجو <i
+                    class="fa fa-search"></i></button>
+        </ng-container>
+    </kt-portlet-header>
+    <kt-portlet-body>
+        <div class="kt-form">
+            <legend class="text-bold">جهت ثبت فورم لیلام به اساس گزینه های ذیل استفاده نمائید </legend>
+            <form [formGroup]="auctionForm">
+                <div class="kt-form__section kt-form__section--first">
+                    <div class="form-group kt-form__group row">
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                            <label class="col-form-label">تفصیلات جنس <span
+                                    *ngIf="isControlHasError('itemDetailText','required')"
+                                    class="text-danger">*</span></label>
+                            <div class="input-group-prepend">
+                                <input type="text" class="form-control" readonly formControlName="itemDetailText">
+                                <button (click)="searchItemDetail()" type="button" class="btn btn-outline-secondary">
+                                    <span class="fa fa-archive"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group kt-form__group row">
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                            <label class="col-form-label">قیمت <span *ngIf="isControlHasError('price','required')"
+                                    class="text-danger">*</span></label>
+                            <input type="text" readonly formControlName="price" class="form-control">
+                        </div>
+
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                            <label class="col-form-label">مقدار <span *ngIf="isControlHasError('quantity','required')"
+                                    class="text-danger">*</span></label>
+                            <input type="number" formControlName="quantity" class="form-control" step="any">
+                        </div>
+
+                        <div class="col-md-4 kt-margin-bottom-20-mobile">
+                            <label class="col-form-label"> سال <span
+                                    *ngIf="isControlHasError('fiscalYearId','required')"
+                                    class="text-danger">*</span></label>
+                            <ng-select autocorrect="true" formControlName="fiscalYearId" [virtualScroll]="true"
+                                bindLabel="name" bindValue="id" [clearable]="false">
+                                <ng-option *ngFor="let years of fiscalyear" [value]="years.id">{{years.shamsiYear}}
+                                </ng-option>
+                            </ng-select>
+                        </div>
+
+                    </div>
+                    <div class="form-group kt-form__group row">
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                            <label class="col-form-label"> تاریخ شمسی <span
+                                    *ngIf="isControlHasError('shamsiDate','required')"
+                                    class="text-danger">*</span></label>
+                            <dp-date-picker dir="rtl" mode="day" formControlName="shamsiDate" theme="dp-material"
+                                [config]="dateService.dateConfigShamsi" (keypress)="$event.preventDefault()"
+                                (onChange)="setGregorianDate($event);" #shamsiDate>
+                            </dp-date-picker>
+                        </div>
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                            <label class="col-form-label"> تاریخ میلادی <span
+                                    *ngIf="isControlHasError('date','required')" class="text-danger">*</span></label>
+                            <dp-date-picker dir="rtl" mode="day" theme="dp-material"
+                                [config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()"
+                                (onChange)="setShamsiDate($event);" formControlName="date" #date>
+                            </dp-date-picker>
+                        </div>
+
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                            <label class="col-form-label">وضیعت <span *ngIf="isControlHasError('statusId','required')"
+                                    class="text-danger">*</span></label>
+                            <ng-select autocorrect="true" formControlName="statusId" [virtualScroll]="true"
+                                bindLabel="name" bindValue="id" [clearable]="false">
+                                <ng-option *ngFor="let st of status" [value]="st.id">{{st.name}}
+                                </ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="form-group kt-form__group row">
+                    <div class=" kt-margin-bottom-20-mobile" style="margin-right: 10px;">
+                        <button (click)="submit()" class="btn btn-primary btn-bold ">ثبت <i
+                                class="fa fa-save"></i></button>
+                    </div>
+                    <div class=" kt-margin-bottom-20-mobile" style="margin-right: 10px;">
+                        <button (click)="newAuction()" class="btn btn-primary btn-bold ">جدید <i
+                                class="fa fa-user"></i></button>
+                    </div>
+                    <div class="kt-margin-bottom-20-mobile" style="margin-right: 10px;">
+                        <button (click)="printAuctionForm()" type="button" class="btn btn-primary btn-bold ">پرنت <i
+                                class="fa fa-print"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </kt-portlet-body>
+</kt-portlet>

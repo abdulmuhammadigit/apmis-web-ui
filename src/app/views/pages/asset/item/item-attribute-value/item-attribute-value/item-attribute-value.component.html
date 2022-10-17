@@ -1,0 +1,41 @@
+<div class="kt-section">
+	<div class="col-md-12">
+		<div class="row justify-content-between mb-3">
+
+			<h6 class="kt-section__heading flex-column">
+				لست مشخصات اجناس و قیمت های آن:
+			</h6>
+			<button type="button" class="btn btn-outline-primary btn-bold " (click)="addNewAttributeValue()">
+				جزئیات جدید<i class="fa fa-save"></i></button>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-md-12 table-responsive">
+			<table class="table table-head-solid table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>شماره</th>
+						<th>کود جنس</th>
+						<th>جزییات</th>
+						<th>عملیات</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let value of allAttributeValues, let i = index">
+						<td>{{i+1}}</td>
+						<td>{{value.code}}</td>
+						<td>{{value.detail}}</td>
+						<td>
+							<!-- <button class="btn btn-sm btn-outline-danger" (click)="delete(value.id)">حذف</button> -->
+							<button class="btn btn-sm btn-outline-primary"
+								(click)="editAttributeValue(value.id)">ویرایش</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</div>

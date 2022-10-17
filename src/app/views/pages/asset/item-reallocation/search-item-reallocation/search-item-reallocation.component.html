@@ -1,0 +1,53 @@
+<div [class.kt-hidden]="onOperation">
+	<kt-portlet>
+		<kt-portlet-header [title]="'جستجو فورم اعاده تحویلخانه'">
+			<ng-container ktPortletTools>
+				<button *ngIf="this.sItem" (click)="createReallocationItemForm()" class="btn btn-outline-primary btn-sm"
+					matTooltip="ایجاد فورم جدید">فورم جدید <i class="fa fa-save"></i></button>
+			</ng-container>
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<div class="kt-form">
+				<legend>جهت جستجو فورم اعاده اجناس از مشخصات ذیل استفاده نمائید</legend>
+				<form [formGroup]="listForm" (submit)="search()">
+					<div class="row">
+						<div class="form-group col-md-3 ">
+							<label class="col-form-label">کود نمبر </label>
+							<input type="text" formControlName="code" class="form-control">
+						</div>
+						<div class="form-group col-md-3 text-left"  >
+							<button class="btn btn-outline-primary btn-bold btn-arrange" matTooltip="جستجوی فورم اعاده تحولیخانه ">جستجو <i class="fa fa-search"></i></button>
+						</div>
+					</div>
+					<hr>
+				</form>
+			</div>
+		</kt-portlet-body>
+	</kt-portlet>
+	<div class="table-responsive">
+		<table class="table table-head-solid table-bordered table-hover">
+			<thead>
+				<tr>
+					<th class="font-weight-bold">شماره</th>
+					<th class="font-weight-bold">کود نمبر</th>
+					<th class="font-weight-bold">تاریخ فورم</th>
+					<th class="font-weight-bold col-per-30">عملیه ها</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let rec of recordList; let i = index">
+					<td>{{ i + 1}}</td>
+					<td>{{rec.code}}</td>
+					<td>{{rec.date}}</td>
+					<td>
+						<button *ngIf="this.sItem" class="btn btn-sm btn-outline-primary" (click)="editItemReallocationForm(rec.id)">ویرایش</button>
+						<button *ngIf="this.cItem" class="btn btn-sm btn-outline-primary" (click)="examinerBoard(rec.id)">معاینه جنس</button>
+						<button *ngIf="this.pItem" class="btn btn-sm btn-outline-primary" (click)="itempPricing(rec.id)">قیمت گذاری جنس</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<ng-template ktComponentHost>
+</ng-template>

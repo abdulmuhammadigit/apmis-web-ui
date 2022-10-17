@@ -1,0 +1,82 @@
+<div [class.kt-hidden]="onOperation">
+	<kt-portlet>
+		<kt-portlet-header [title]="'فهرست اجناس'">
+			<ng-container ktPortletTools>
+				<button (click)="createItem()" class="btn bg-teal-800 btn-square btn-bold" matTooltip="فورم جدید اجناس">
+					<i class="fa fa-plus"></i>
+					ثبت و راجستر اجناس جدید </button>
+			</ng-container>
+		</kt-portlet-header>
+		<kt-portlet-body>
+
+			<div class="kt-form">
+				<form [formGroup]="itemSearchForm">
+					<!-- <div class="row">
+						<div class="form-group col-md-3">
+							<label class="col-form-label">کتگوری</label>
+							<ng-select formControlName="categoryId" class="form-control">
+								<ng-option value="">---</ng-option>
+								<ng-option *ngFor="let category of categoryList" value="{{category.id}}">
+									{{category.name}}
+								</ng-option>
+							</ng-select>
+						</div>
+						<div class="form-group col-md-3">
+							<label class="col-form-label">جنس</label>
+							<input type="text" formControlName="name" class="form-control">
+						</div>
+						<div class="col-md-3">
+							<button (click)="searchItem()" class="btn border-slate btn-bold btn-square"
+								matTooltip="جستجوی مشخصات">جستجو
+								<i class="fa fa-search"></i></button>
+						</div>
+					</div>
+					<hr> -->
+					<div class="row">
+						<div class="col-md-2">
+							<input type="text" class="form-control ngx-datatable-filter-input"
+								(keyup)="filterTable($event)" placeholder="جستجو به اساس نام جنس" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</kt-portlet-body>
+		<ngx-datatable [columnMode]="'force'" (itemDelete)="itemDelete($event)" class="bootstrap" [messages]="messages"
+			[rows]="itemSearchList" [columns]="columns">
+		</ngx-datatable>
+	</kt-portlet>
+	<!-- <div class="table-responsive">
+		<table class="table table-bordered table-head-solid table-hover">
+			<thead>
+				<th class="font-weight-bold col-per-5">شماره</th>
+				<th class="font-weight-bold">نام جنس</th>
+				<th class="font-weight-bold">کتگوری</th>
+				<th class="font-weight-bold">واحد</th>
+				<th class="font-weight-bold">نوعیت جنس</th>
+				<th class="font-weight-bold"> انتخاب </th>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of itemSearchList; let i = index">
+					<td>{{ i + 1}}</td>
+					<td>{{item.name}}</td>
+					<td>{{item.categoryText}}</td>
+					<td>{{item.unitText}}</td>
+					<div *ngIf="item.consumable; then thenBlock else elseBlock"></div>
+					<ng-template #thenBlock>
+						<td>مصرفی</td>
+					</ng-template>
+					<ng-template #elseBlock>
+						<td>غیر مصرفی</td>
+					</ng-template>
+					<td>
+						<button type="button" class="btn btn-sm btn-table btn-outline-primary"
+							(click)="editItem(item.id)">ویرایش<i class="flaticon2-edit"></i></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div> -->
+</div>
+<ng-template ktComponentHost>
+
+</ng-template>

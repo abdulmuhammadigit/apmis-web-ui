@@ -1,0 +1,67 @@
+<div [class.kt-hidden]="onOperation">
+	<kt-portlet>
+		<kt-portlet-header [title]="title">
+			<ng-container ktPortletTools>
+				<button (click)="createForm()" class="btn btn-outline-primary btn-sm"> فورم جدید <i
+					class="fa fa-save"></i></button>
+			</ng-container>
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<div class="kt-form">
+				<legend class="text-bold"  bind-innerText="subTitle" >fgf</legend>
+				<form [formGroup]="searchForm">
+					<div class="kt-form__section kt-form__section--first">
+						<div class="row">
+							<div class="col-md-3">
+								<label class="col-form-label">شماره مکتوب </label>
+								<input type="text" formControlName="documentNumber" class="form-control">
+							</div>
+							<div class="col-md-3">
+								<label class="col-form-label">تسلیم گیرنده</label>
+								<input type="text" formControlName="toEmployee" class="form-control">
+							</div>
+						</div>
+ 						<hr>
+						<div class="row">
+							<div class="col-md-12">
+								<button (click)="search()" class="btn btn-primary btn-bold ">جستجو	<i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</kt-portlet-body>
+	</kt-portlet>
+	<div class="table-responsive">
+		<table class="table table-bordered table-head-solid table-hover">
+			<thead>
+			<tr>
+				<th> شماره </th>
+				<th>کود اجناس</th>
+				<th>شماره مکتوب</th>
+				<th>تسلیم گیرنده</th>
+				<th> تاریخ تسلیمی </th>
+				<th> عملیه</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr *ngFor="let rec of recordList; let i = index">
+				<td>{{i + 1}}</td>
+				<td>{{rec.code}}</td>
+				<td>{{rec.documentNumber}}</td>
+				<td>{{rec.employeeName + "  \'"}}{{rec.employeeLastName + "  \'"}}{{ " فرزند " }}{{" " + rec.employeeFatherName}}</td>
+				<td>{{rec.date}}</td>
+				<td>
+					<button (click)="editRecord(rec.id)"  type="button"><i class="fa fa-edit"></i></button>
+					&nbsp;
+					<button (click)="printRecord(rec.id)" type="button" ><i class="icon-printer4"></i></button>
+ 					<!-- <button type="button" class="btn btn-sm btn-outline-primary" (click)="controlRequestForm(request.id)">بررسی</button> -->
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<ng-template ktComponentHost>
+
+</ng-template>

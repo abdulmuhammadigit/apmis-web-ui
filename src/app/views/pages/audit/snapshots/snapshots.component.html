@@ -1,0 +1,81 @@
+<kt-portlet [class.kt-hidden]="onOperation">
+	<kt-portlet-header [title]="'Data Audit and Versioning'">
+
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<form [formGroup]="searchForm" (ngSubmit)="search()">
+				<div class="row from-group">
+
+					<div class="col-md-4 row">
+						<label class="col-form-label col-md-4">Entity<span class="text-danger"> * </span></label>
+						<div class="col-md-8">
+							<select class="form-control " formControlName="entity">
+								<option value="">--</option>
+								<option *ngFor="let entity of entityList" [value]="entity.id">{{entity.title}}</option>
+							</select>
+							<span *ngIf="isControlHasError('entity','required')" class="form-text text-danger">This
+								Field Is Required</span>
+						</div>
+
+					</div>
+
+					<div class="col-md-4 row">
+						<label class="col-md-4 col-form-label">Entity Id<span class="text-danger"> * </span></label>
+						<div class="col-md-8">
+							<input type="text" class='form-control' formControlName='entityId'>
+							<span *ngIf="isControlHasError('entityId','required')" class="form-text text-danger">This
+								Field Is Required</span>
+						</div>
+					</div>
+
+					<div class="col-md-4 text-left">
+						<button class="btn btn-outline-secondary">Search</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>Entity</th>
+							<th>Entity Id</th>
+							<th>Type</th>
+							<th>Author</th>
+							<th>Date</th>
+							<td>Version</td>
+							<th>Changed Properties</th>
+							<th>State</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let snapshot of snapshotsResultList">
+							<td>{{ selectedEntity }}</td>
+							<td>{{ snapshot.globalId.cdoId }}</td>
+							<td>{{ snapshot.type }}</td>
+							<td>{{ snapshot.commitMetadata.author }}</td>
+							<td>{{ snapshot.commitMetadata.commitDate | date:'medium' }}</td>
+							<td>{{ snapshot.version }}</td>
+							<td>
+								<!-- <span *ngFor="let item of snapshot.changedProperties">
+								{{ item }} <br>
+							</span> -->
+								<ngx-json-viewer [json]="snapshot.changedProperties"></ngx-json-viewer>
+							</td>
+							<td>
+								<!-- {{ JSON.stringify(snapshot.state)}} -->
+								<ngx-json-viewer [json]="snapshot.state"></ngx-json-viewer>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+<ng-template ktComponentHost>
+
+</ng-template>

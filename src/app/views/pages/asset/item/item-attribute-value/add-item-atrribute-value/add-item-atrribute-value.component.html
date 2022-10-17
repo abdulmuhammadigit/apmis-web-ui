@@ -1,0 +1,84 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-basic-title">{{formTitle}}</h4>
+	<button type="button" class="close pull-left" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<legend class="text-bold">جهت مشخص نمودن شرح مشخصات جنس از صفحه مذکور استفاده نمائید</legend>
+	<label>
+		{{itemName}}[
+		<span *ngFor="let atv of itemAttributeValueList.controls; let i=index">
+			(
+			{{atv.get('attributeText').value}} :
+			{{atv.get('value').value}} -
+			{{getNameOfUnit(atv.get('unitId').value)?.name}}
+			)
+		</span>
+		]
+	</label>
+	<div class="kt-form">
+		<form [formGroup]="itemAttributeValueForm" #valueForm="ngForm">
+			<div class="row">
+				<div class="col-md-12">
+
+
+					<table class="table table-bordered table-head-solid table-hover">
+						<thead>
+							<tr>
+								<th class="font-weight-bold">شماره </th>
+								<th class="font-weight-bold"> مشخصه</th>
+								<th class="font-weight-bold">نوعیت مشخصات</th>
+								<th class="font-weight-bold"> شرح مشخصات</th>
+								<th class="font-weight-bold"> واحد </th>
+
+							</tr>
+						</thead>
+						<tbody formArrayName="itemAttributeValueList">
+
+							<tr *ngFor="let item of itemAttributeValueList.controls; let i=index" [formGroupName]="i">
+								<td>
+									{{ i + 1}}
+								</td>
+
+								<td>
+									<input type="text" readonly formControlName="attributeText" #att
+										class="form-control" placeholder=" مشخصه"
+										[class.invalid]="isDetailControlHasError('attributeText','required',i)">
+								</td>
+								<td>
+									<input type="text" readonly formControlName="dataTypeName" class="form-control"
+										placeholder="نوعیت مشخصه">
+								</td>
+								<td><input type="text" formControlName="value" name="value" #val class="form-control"
+										placeholder="شرح مشخصه"
+										[class.invalid]="isDetailControlHasError('value','required',i)">
+								</td>
+								<td>
+									<ng-select formControlName="unitId">
+										<ng-option [value]="unit.id" [disabled]="unit.disabled"
+											*ngFor="let unit of unitsList">
+											{{unit.name}}
+										</ng-option>
+									</ng-select>
+
+								</td>
+
+
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<button (click)="submit()" class="btn btn-primary btn-bold ">ثبت <i class="fa fa-save"></i></button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- </kt-portlet-body>
+</kt-portlet> -->

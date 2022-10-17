@@ -1,0 +1,97 @@
+<div class="modal-header">
+	<h5 class="modal-title" id="modal-basic-title">پرنت فورم درخواستی </h5>
+	<button type="button" class="close text-left " aria-label="Close" (click)="activeModel.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<body id="print-section">
+	<div class="page">
+		<table class="header_table" style="width:100%;">
+			<tr>
+
+				<td style="text-align:center;width:100%;vertical-align:top;">
+					<p style="margin-top:5px;font-size: 14px">درخواست جنس از تحویلخانه</p>
+					<p style="margin-top:5px;">فورم ف س ۹ </p>
+					<div class="form-barcode barecode-static-width"
+						style="margin-top:-10px;margin-bottom: -120px;text-align:left;">
+						<ngx-barcode [bc-value]="code" [bc-display-value]="true" [bc-format]="'CODE128'">
+						</ngx-barcode>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<hr>
+		<table style="margin-top: 1px">
+			<tr>
+				<td>1. شماره : </td>
+				<td>2. تاریخ : {{date}} </td>
+			</tr><br>
+			<tr>
+				<td>3. ریاست درخواست دهنده :{{orgUnitText}}</td>
+				<td>4. شعبه مربوطه :{{department}} </td>
+			</tr>
+		</table><br>
+		<table class="table table-striped table-hover" style="margin-top: 1px">
+
+			<tr>
+				<th class="">شماره اقلام</th>
+				<th class="">شماره ذخیره</th>
+				<th colspan="7" class="">تفصیلات جنس</th>
+				<th class="">مقدار</th>
+				<th class="">واحد</th>
+				<th class="">معامله شد بحساب</th>
+			</tr>
+
+			<tbody>
+				<tr *ngFor="let list of detailModelList; let i = index">
+					<td class="">{{ i + 1}}</td>
+					<td class=""></td>
+					<td colspan="7" class="">{{list.itemDetailText}}</td>
+					<td class="">{{list.baseQuantity}}</td>
+					<td class="">{{list.unitText}}</td>
+					<td class="">{{employeeText}}</td>
+				</tr>
+				<tr>
+					<td colspan="1"></td>
+					<td colspan="1"></td>
+					<td colspan="7"><span [innerHTML]="this.description"></span> </td>
+					<td colspan="1"></td>
+					<td colspan="1"></td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr>
+					<td colspan="12" class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; اجناس
+						فوق را در جمع اشخاص که اسامی ان در ستون ده ذکر گردیده است حواله نموده ممنون سازید
+						.<br><br><br><br></td>
+				</tr>
+				<tr>
+					<td colspan="10" class="">11 - اقلامیکه در ان خط گرفته شده در تحویلخانه موجود نیست خریداری ان
+						درخواست گردد.<br><br>
+						امضاّ امر تحویلخانه:
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						تاریخ: {{date}}
+					</td>
+					<td colspan="2" class="">12- نمبر تکت توزیع <br><br> تاریخ: {{date}} </td>
+				</tr>
+			</tbody>
+		</table>
+		<p> توزیع : در یک اصل و دو کاپی ترتیب میشود.</p>
+		<p> الف: اصل ان به تحویلخانه حفظ میگردد.</p>
+		<p> ب : کاپی اول به مدیریت خدمات شعبه تهیه توسط تحویلخانه جهت خریداری ارسال میگردد.</p>
+		<p> ج : کاپی دوم به درخواست کننده با تکت توزیع داده میشود.</p><br>
+		<p>
+			.......................
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			13 - امضاّی صلاحیت دار
+		</p><br><br><br><br>
+	</div>
+</body>
+<div class="form-group kt-form__group row">
+	<div style="margin-right: 20px;">
+		<button class="btn btn-primary btn-bold " printSectionId="print-section" [useExistingCss]="true" ngxPrint>پرنت
+			<i class="fa fa-print"></i></button>
+	</div>
+</div>

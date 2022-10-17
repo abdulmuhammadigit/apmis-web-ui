@@ -1,0 +1,148 @@
+<kt-portlet>
+	<kt-portlet-header [title]="formTitle ">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-outline-primary">جستجو<i class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<legend class="text-bold">جهت ثبت نمودن چارت صرفیه از این صفحه استفاده نمائید</legend>
+			<form [formGroup]="chartForm">
+				<div class="row">
+					<div class="form-group col-md-4">
+						<label class="col-form-label">کود</label>
+						<input type="text" class="form-control" formControlName="code" readonly
+							placeholder="توسط سیستم ایجاد میگردد">
+					</div>
+					<div class="form-group col-md-4">
+						<label class="col-form-label">ریاست<span *ngIf="isControlHasError('orgUnitId','required')"
+								class="text-danger">*</span></label>
+						<ng-select autocorrect="true" formControlName="orgUnitId" [virtualScroll]="true"
+							bindLabel="name" bindValue="id" [clearable]="false">
+							<ng-option *ngFor="let org of orgunit" [value]="org.id">{{org.name}}</ng-option>
+						</ng-select>
+					</div>
+					<div class="form-group col-md-4">
+						<label class="col-form-label"> سال <span *ngIf="isControlHasError('fiscalYearId','required')"
+								class="text-danger">*</span></label>
+
+						<ng-select autocorrect="true" formControlName="fiscalYearId" [virtualScroll]="true"
+							bindLabel="name" bindValue="id" [clearable]="false">
+							<ng-option *ngFor="let years of fiscalyear" [value]="years.id">{{years.shamsiYear}}
+							</ng-option>
+						</ng-select>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12">
+						<button (click)="submitChart()" class="btn btn-primary btn-bold ">ثبت <i
+								class="fa fa-save"></i></button>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12" [class.kt-hidden]="hideDetail">
+						<table class="table table-striped table-head-solid table-hover">
+							<thead>
+								<tr>
+									<th>ربع</th>
+									<th>تفصیلات جنس</th>
+									<th>مقدار پیش بینی</th>
+									<th>واحد</th>
+									<th>مقدار پیش بینی شده به اصل واحد</th>
+									<th>ملاحظات</th>
+									<th>عملیه ها</th>
+								</tr>
+							</thead>
+							<tbody formArrayName="detailsModel">
+								<tr *ngFor="let _ of detailsModel.controls; let i=index" [formGroupName]="i">
+									<td>
+										<ng-select autocorrect="true"
+											[class.invalid]="isDetailControlHasError('fiscalYearQuarterId','required',i)"
+											formControlName="fiscalYearQuarterId" [virtualScroll]="true"
+											bindLabel="name" bindValue="id" [clearable]="false">
+											<ng-option *ngFor="let year of fiscalyearquarter" [value]="year.id">
+												{{year.name}}
+											</ng-option>
+										</ng-select>
+									</td>
+									<td>
+										<div class="input-group mb-3">
+											<input type="text" class="form-control"
+												[class.invalid]="isDetailControlHasError('itemDetailText','required',i)"
+												readonly formControlName="itemDetailText" />
+											<input type="hidden" formControlName="itemDetailId" />
+											<div class="input-group-prepend text-danger">
+												<span (click)="searchItemDetail(i)" class="btn btn-outline-secondary">
+													<span class="fa fa-archive"></span>
+												</span>
+											</div>
+										</div>
+									</td>
+									<td>
+										<input type="number" formControlName="requestedQuantity" class="form-control"
+											[class.invalid]="isDetailControlHasError('requestedQuantity','required',i)"
+											step="any">
+									</td>
+									<td>
+										<ng-select formControlName="unitId" [virtualScroll]="true" bindLabel="name"
+											[class.invalid]="isDetailControlHasError('unitId','required',i)"
+											bindValue="id" [clearable]="false">
+											<ng-option [value]="item.id" [disabled]="item.disabled"
+												*ngFor="let item of unit">
+												{{item.name}}
+											</ng-option>
+										</ng-select>
+									</td>
+									<td>
+										<input type="text" readonly formControlName="baseQuantity"
+											placeholder="توسط سیستم محاسبه میگردد" class="form-control">
+									</td>
+									<td>
+										<textarea formControlName="description" class="form-control"
+											rows="1"></textarea>
+									</td>
+									<td>
+										<button (click)="submitChartDetail(i)"
+											class="btn btn-primary btn-bold  kt-margin-10-desktop">ثبت
+											<i class="fa fa-save"></i></button>
+
+										<button (click)="removeDetailItem(i)" type="button"
+											class="btn btn-primary btn-bold  text-danger" id="remove">حذف
+											<i class="flaticon-delete"></i>
+										</button>
+
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row">
+							<div class="col-md-12">
+								<button (click)="addIDetailtem()" type="button" class="btn btn-secondary btn-bold">
+									<span class="glyphicon glyphicon-plus">+</span>
+								</button>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-md-12">
+								<button (click)="newRecord()" class="btn btn-primary btn-bold">جدید<i
+										class="fa fa-window-restore"></i></button>
+
+								<button (click)="printNecessityChart()" type="button"
+									class="btn btn-primary btn-bold">پرنت
+									<i class="fa fa-print"></i>
+								</button>
+
+								<kt-process-tracking class="pull-left"></kt-process-tracking>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</form>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

@@ -1,0 +1,61 @@
+<kt-portlet [class.kt-hidden]="onOperation">
+	<kt-portlet-header title="مراحل کاری">
+		<ng-container ktPortletTools>
+			<button (click)="create()" class="btn btn-outline-secondary btn-labeled">مرحله جدید<b><i
+						class="icon-plus2"></i></b></button>
+		</ng-container>
+	</kt-portlet-header>
+
+	<kt-portlet-body>
+		<div>
+			<div class="kt-form">
+				<form [formGroup]="stageSearchForm" (ngSubmit)="search()">
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label class="col-form-label">اسم: </label>
+							<input type="text" formControlName="name" class="form-control">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<button class="btn btn-outline-primary btn-labeled-right"><span>جستجو</span><b><i
+										class="icon-search4"></i></b></button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered table-head-solid table-hover">
+						<thead>
+							<th class="font-weight-bold">شماره</th>
+							<th class="font-weight-bold">اسم</th>
+							<th class="font-weight-bold">نوع مرحله</th>
+							<th class="font-weight-bold">جریان کار</th>
+							<th class="font-weight-bold">عملیات</th>
+						</thead>
+						<tbody>
+							<tr *ngFor="let list of stageSearchResult; let i = index">
+								<td>{{ i + 1}}</td>
+								<td>{{list.name}}</td>
+								<td>{{list.stageTypeText}}</td>
+								<td>{{list.workFlowText}}</td>
+								<td>
+									<button type="button" class="btn btn-outline-primary" (click)="edit(list.id)">
+										<i class="flaticon2-edit"></i>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+
+
+<ng-template ktComponentHost>
+
+</ng-template>

@@ -1,0 +1,76 @@
+<kt-portlet>
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-outline-primary btn-bold " matTooltip="برگشت به جستجو">جستجو
+				<i class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<legend class="text-bold">جهت ثبت معتمد جدید از این صفحه استفاده نمائید</legend>
+			<form [formGroup]="stockKeeperForm">
+				<div class="kt-form__section kt-form__section--first">
+					<div class="form-group kt-form__group row">
+						<div class="col-md-3">
+							<label class="col-form-label"> کارمند <span
+									*ngIf="isControlHasError('employeeText','required')"
+									class="text-danger">*</span></label>
+							<div class="input-group-prepend">
+								<input type="text" class="form-control" readonly formControlName="employeeText">
+								<button (click)="selectEmployee()" type="button" class="btn btn-outline-secondary">
+									<span class="fa fa-user"></span>
+								</button>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<label class="col-form-label">کتگوری <span
+									*ngIf="isControlHasError('categoryList','required')"
+									class="text-danger">*</span></label>
+
+							<ng-select [multiple]="true" formControlName="categoryList">
+								<ng-option *ngFor="let category of categoryList" [value]="category.id"
+									class="form-control">
+									{{category.name}}
+								</ng-option>
+							</ng-select>
+						</div>
+
+						<div class="col-md-3">
+							<label class="col-form-label">موقیت <span *ngIf="isControlHasError('locationId','required')"
+									class="text-danger">*</span></label>
+							<ng-select autocorrect="true" formControlName="locationId" [virtualScroll]="true"
+								bindLabel="name" bindValue="id" [clearable]="false">
+								<ng-option *ngFor="let loc of location" [value]="loc.id">{{loc.name}}
+								</ng-option>
+							</ng-select>
+						</div>
+						<div class="col-md-3">
+							<label class="col-form-label">نوعیت <span
+									*ngIf="isControlHasError('stockKeeperTypeId','required')"
+									class="text-danger">*</span></label>
+							<ng-select autocorrect="true" formControlName="stockKeeperTypeId" [virtualScroll]="true"
+								bindLabel="name" bindValue="id" [clearable]="false">
+								<ng-option *ngFor="let type of keeperType" [value]="type.id">{{type.name}}
+								</ng-option>
+							</ng-select>
+						</div>
+						<div class="col-md-3">
+							<label class="col-form-label">انتخاب کاربر <span
+									*ngIf="isControlHasError('userId','required')" class="text-danger">*</span></label>
+							<ng-select [items]="userList" autocorrect="true" formControlName="userId"
+								bindLabel="fullName" bindValue="id" [clearable]="false">
+							</ng-select>
+						</div>
+					</div>
+					<br>
+				</div>
+				<hr>
+				<div class="row">
+					<button (click)="submit()" class="btn btn-primary btn-bold ">ثبت <i class="fa fa-save"></i></button>
+					<button (click)="newForm()" class="btn btn-primary btn-bold ">جدید <i
+							class="fa fa-user"></i></button>
+				</div>
+			</form>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

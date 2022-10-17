@@ -1,0 +1,211 @@
+<kt-portlet>
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-outline-primary btn-bold ">جستجو
+				<i class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<legend>جهت ثبت راپور رسید اجناس از این صفحه استفاده میگردد</legend>
+			<form [formGroup]="itemForm">
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label>کود</label>
+						<input type="text" class="form-control" formControlName="code"
+							placeholder="توسط سیستم ایجاد میگردد.">
+					</div>
+
+					<div class="form-group col-md-3">
+
+						<label> تاریخ رسید شمسی <span *ngIf="isControlHasError('receiveDateShamsi','required')"
+								class="text-danger">*</span></label>
+						<dp-date-picker dir="rtl" mode="day" formControlName="receiveDateShamsi" theme="dp-material"
+							[config]="dateService.dateConfigShamsi" (keypress)="$event.preventDefault()"
+							(onChange)="setGregorianDate($event);" #shamsiDate>
+						</dp-date-picker>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label> تاریخ رسید میلادی <span *ngIf="isControlHasError('receiveDate','required')"
+								class="text-danger">*</span></label>
+						<dp-date-picker dir="rtl" mode="day" theme="dp-material"
+							[config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()"
+							(onChange)="setShamsiDate($event);" formControlName="receiveDate" #date>
+						</dp-date-picker>
+					</div>
+					<div class="form-group col-md-3">
+						<label>تسلیم شونده<span *ngIf="isControlHasError('stockKeeperId','required')"
+								class="text-danger">*</span></label>
+						<ng-select formControlName="stockKeeperId">
+							<ng-option class="form-control" [value]="stockKeeper.id"
+								*ngFor="let stockKeeper of stockKeepersList">
+								{{stockKeeper.name}}
+							</ng-option>
+						</ng-select>
+					</div>
+
+
+					<!-- <div class="form-group col-md-3">
+						<label> راپور</label>
+						<input type="text" formControlName="documentNumber" class="form-control">
+					</div> -->
+					<!-- <div class="form-group col-md-3">
+						<label> تاریخ مکتوب</label>
+						<input type="date" class="form-control" formControlName="documentDate">
+					</div> -->
+				</div>
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label>نوعیت رسید <span *ngIf="isControlHasError('itemReceiptTypeId','required')"
+								class="text-danger">*</span></label>
+						<ng-select formControlName="itemReceiptTypeId">
+							<ng-option [value]="itemReceiptType.id"
+								*ngFor="let itemReceiptType of itemReceiptTypesList">
+								{{itemReceiptType.name}}
+							</ng-option>
+						</ng-select>
+					</div>
+					<div class="form-group col-md-3">
+						<label> نمبر بل/نمبر قرارداد</label>
+						<input class="form-control" formControlName="billNumber">
+					</div>
+					<div class="form-group col-md-3">
+						<label>تمویل کننده<span *ngIf="isControlHasError('donorId','required')"
+								class="text-danger">*</span></label>
+						<ng-select formControlName="donorId">
+							<ng-option class="form-control" [value]="donor.id" *ngFor="let donor of donorList">
+								{{donor.name}}
+							</ng-option>
+						</ng-select>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label>نمبر م ۱۶ </label>
+						<input type="text" class="form-control" formControlName="m16Number">
+					</div>
+
+					<div class="form-group col-md-3">
+						<label>نمبر م ۳ <span *ngIf="isControlHasError('m3Number','required')"
+								class="text-danger">*</span></label>
+						<input type="text" class="form-control" formControlName="m3Number">
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label>ملاحظات</label>
+						<ckeditor formControlName="description" [editor]="Editor" [config]="{language:'fa'}">
+						</ckeditor>
+					</div>
+				</div>
+				<hr>
+				<div class="form-group row">
+					<div class="col-md-12">
+						<button (click)="submit()" class="btn btn-primary btn-bold ">ثبت <i class="fa fa-save"></i></button>
+						<button [class.kt-hidden]="addItemButton" (click)="addItem()" class="btn btn-primary btn-bold"> اضافه کردن اجناس<i class="flaticon-add"></i></button>
+					</div>
+				</div>
+				<hr>
+
+				<div [class.kt-hidden]="hideDetail">
+					<div class="form-group row">
+						<div class="col-md-12">
+							<table class="table table-striped table-head-solid table-hover">
+								<thead>
+									<tr>
+										<th class="font-weight-bold col-per-20"> جنس</th>
+										<th class="font-weight-bold">مقدار</th>
+										<th class="font-weight-bold">واحد</th>
+										<th class="font-weight-bold"> قیمت فی واحد</th>
+										<th class="font-weight-bold">مبلغ مجموعی</th>
+										<th class="font-weight-bold">ساخت داخلی</th>
+										<th class="font-weight-bold col-per-20">تشریحات</th>
+										<th class="font-weight-bold col-per-5">مشخصات</th>
+										<th class="font-weight-bold col-per-15">عملیه ها</th>
+									</tr>
+								</thead>
+								<tbody formArrayName="itemReceiptModelDetails">
+									<tr *ngFor="let _ of itemReceiptModelDetails.controls; let i=index"
+										[formGroupName]="i">
+										<td>
+											<div class="input-group mb-3">
+												<input type="hidden" #id formControlName="id" />
+												<input type="hidden" formControlName="itemDetailId" />
+												<input type="hidden" #consumable formControlName="consumable" />
+												<input type="text" class="form-control" formControlName="itemDetailText"
+													[class.invalid]="isDetailControlHasError('itemDetailText','required',i)">
+												<div class="input-group-prepend">
+													<button (click)="searchItemDetail(i)" type="button"
+														class="btn btn-outline-secondary">
+														<span class="fa fa-archive"></span>
+													</button>
+												</div>
+											</div>
+										</td>
+										<td><input type="number" min="1" formControlName="quantity"
+												[class.invalid]="isDetailControlHasError('quantity','required',i)"
+												class="form-control">
+										</td>
+										<td>
+											<input type="hidden" formControlName="unitId" />
+											<input type="text" class="form-control" formControlName="unitText" readonly>
+										</td>
+										<td><input type="number" formControlName="price" class="form-control"
+												[class.invalid]="isDetailControlHasError('price','required',i)" min="1">
+										</td>
+										<td><input type="number" formControlName="sum" class=" form-control" min="1">
+										</td>
+										<td>
+											<span class="kt-switch kt-switch--icon-check">
+												<label><input type="checkbox" formControlName='localProduction'/><span></span></label>
+											</span>
+										</td>
+										<td><textarea formControlName="description" class="form-control"
+												rows="1"></textarea>
+										</td>
+										<td>
+											<button (click)="specifyItem(i)" [disabled]="specificationRegistrable(id.value,consumable.value)" type="button" class="btn btn-outline-primary"><span class="fa fa-tag" aria-hidden="true"></span></button>
+										</td>
+										<td>
+											<button (click)="submitDetail(i)" class="btn btn-primary">ثبت
+												<i class="fa fa-save"></i></button>
+
+											<button (click)="removeItem(i)" type="button"
+												class="btn btn-primary text-danger" id="remove">حذف
+												<i class="flaticon-delete"></i>
+											</button>
+										</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-12">
+							<button (click)="addItem()" type="button" class="btn btn-outline-secondary" id="addItem">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true">+</span>
+							</button>
+
+						</div>
+					</div>
+					<hr>
+					<div class="form-group row">
+						<div class="col-md-12">
+							<button (click)="print()" class="btn btn-primary btn-bold ">پرنت <i
+									class="fa fa-print"></i></button>
+							<button (click)="newRecord()" class="btn btn-primary btn-bold "><i
+									class="fa fa-window-restore"></i>جدید</button>
+							<kt-process-tracking class="pull-left"></kt-process-tracking>
+							<kt-upload-file class="pull-left"></kt-upload-file>
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+<ng-template ktComponentHost>
+</ng-template>

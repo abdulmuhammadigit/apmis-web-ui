@@ -1,0 +1,33 @@
+<kt-portlet>
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-outline-primary btn-bold ">جستجو
+				<i class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<form [formGroup]="unitForm">
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label>نام<span *ngIf="isControlHasError('name','required')"
+								class="text-danger">*</span></label>
+						<input type="text" class="form-control" formControlName="name">
+					</div>
+				</div>
+
+				<hr>
+
+				<div class="row">
+					<div class="col-md-12">
+						<button (click)="submit()" class="btn btn-primary btn-bold ">ثبت <i
+								class="fa fa-save"></i></button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+
+
+	</kt-portlet-body>
+</kt-portlet>

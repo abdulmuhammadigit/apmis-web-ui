@@ -1,0 +1,70 @@
+<div [class.kt-hidden]="onOperation">
+	<kt-portlet>
+		<kt-portlet-header [title]="'جستجو تکت توزیع اجناس'">
+			<ng-container ktPortletTools>
+				<button *ngIf="this.sItem" (click)="createItemDistributionForm()" type="button"
+					class="btn btn-outline-primary btn-sm" matTooltip="فورم  جدید">فورم جدید
+					<i class="fa fa-window-restore"></i>
+				</button>
+			</ng-container>
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<div class="kt-form">
+				<legend class="text-bold">جهت جستجو اجناس توزیع شده از گزینه های ذیل استفاده نمائید</legend>
+				<form [formGroup]="itemDistributedSearchForm">
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label class="col-form-label">کود نمبر </label>
+							<input type="text" formControlName="code" class="form-control">
+						</div>
+						<!-- <div class="form-group col-md-3">
+						<label class="col-form-label">نمبر تکت</label>
+						<input type="text" class="form-control" formControlName="documentNumber">
+					</div> -->
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12">
+							<button (click)="searchItemDistribution()" type="button" class="btn btn-primary btn-sm"
+								matTooltip="جستجوی تکت توزیع تحولیخانه "> جستجو <i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</kt-portlet-body>
+	</kt-portlet>
+	<div class="table-responsive">
+		<table class="table table-bordered table-head-solid table-hover">
+			<thead>
+				<tr>
+					<th class="font-weight-bold">شماره</th>
+					<th class="font-weight-bold">کود نمبر</th>
+					<!-- <th class="font-weight-bold">نمبر تکت</th> -->
+					<th class="font-weight-bold">تاریخ تکت</th>
+					<th class="font-weight-bold">نمبر درخواست</th>
+					<th class="font-weight-bold">تاریخ درخواست</th>
+					<th class="font-weight-bold">عملیه ها</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let list of itemDistributedSearchList; let i = index">
+					<td>{{ i + 1}}</td>
+					<td>{{list.code}}</td>
+					<!-- <td>{{list.documentNumber}}</td> -->
+					<td>{{list.date}}</td>
+					<td>{{list.itemRequestCode}}</td>
+					<td>{{list.date}}</td>
+					<td>
+						<button *ngIf="this.sItem"  (click)="editItemDistributionForm(list.id)" ngbTooltip="ویرایش"><i class="fa fa-edit"></i></button> &nbsp;
+						<button *ngIf="this.cItem"  (click)="controlItemDistribution(list.id)" ngbTooltip="برسی"><i class="fa fa-eye"></i></button> &nbsp;
+						<button *ngIf="this.aItem"  (click)="approveItemDistribution(list.id)" ngbTooltip="تایید"><i class="fa icon-checkmark"></i></button> &nbsp;
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<ng-template ktComponentHost>
+
+</ng-template>

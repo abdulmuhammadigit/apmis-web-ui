@@ -1,0 +1,60 @@
+<kt-portlet>
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-outline-primary btn-bold ">جستجو
+				<i class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<form [formGroup]="unitExchangeForm">
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label>واحد <span *ngIf="isControlHasError('unitId','required')"
+								class="text-danger">*</span></label>
+						<ng-select formControlName="unitId">
+							<ng-option [value]="unit.id" *ngFor="let unit of unitList">
+								{{unit.name}}
+							</ng-option>
+						</ng-select>
+					</div>
+					<div class="form-group col-md-3">
+						<label>به واحد <span *ngIf="isControlHasError('toUnitId','required')"
+								class="text-danger">*</span></label>
+						<ng-select formControlName="toUnitId">
+							<ng-option [value]="unit.id" *ngFor="let unit of unitList">
+								{{unit.name}}
+							</ng-option>
+						</ng-select>
+					</div>
+					<div class="form-group col-md-3">
+						<label> مقدار <span *ngIf="isControlHasError('quantity','required')"
+								class="text-danger">*</span></label>
+						<input type="number" formControlName="quantity" class=" form-control" min="1">
+					</div>
+
+					<div class="form-group col-md-3">
+						<label>جنس</label>
+						<ng-select formControlName="itemId">
+							<ng-option [value]="item.id" *ngFor="let item of itemList">
+								{{item.name}}
+							</ng-option>
+						</ng-select>
+					</div>
+
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12">
+						<button (click)="submit()" class="btn btn-primary btn-bold ">ثبت <i
+								class="fa fa-save"></i></button>
+						<button (click)="newRecord()" class="btn btn-primary btn-bold ">جدید <i
+								class="fa fa-window-restore"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+	</kt-portlet-body>
+</kt-portlet>

@@ -1,0 +1,91 @@
+<div [class.kt-hidden]="onOperation">
+	<kt-portlet>
+		<kt-portlet-header [title]="'فهرست چارت صرفیه'">
+			<ng-container ktPortletTools>
+				<button (click)="createChart()" class="btn bg-teal-800 btn-square btn-bold"
+					matTooltip='فورم جدید چارت صرفیه'>
+
+					<i class="fa fa-plus"></i>
+
+					چارت صرفیه جدید </button>
+			</ng-container>
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<div class="kt-form">
+				<form [formGroup]="searchNecessityChartForm">
+					<div class="kt-form__section kt-form__section--first">
+						<div class="form-group kt-form__group row">
+							<div class="col-md-3">
+								<label class="col-form-label">کُد چارت صرفیه</label>
+								<input type="text" class="form-control" formControlName="code">
+							</div>
+							<div class="col-md-3">
+								<label class="col-form-label"> ریاست مربوطه </label>
+								<ng-select autocorrect="true" class="form-control" formControlName="orgUnitId"
+									[virtualScroll]="true" bindLabel="name" bindValue="id" [clearable]="false">
+									<ng-option *ngFor="let org of orgunit" [value]="org.id">{{org.name}}</ng-option>
+								</ng-select>
+							</div>
+							<div class="col-md-2">
+								<label class="col-form-label"> سال مالی </label>
+								<ng-select autocorrect="true" class="form-control" formControlName="fiscalYearId"
+									[virtualScroll]="true" bindLabel="name" bindValue="id" [clearable]="false">
+									<ng-option *ngFor="let years of fiscalyear" [value]="years.id">{{years.shamsiYear}}
+									</ng-option>
+								</ng-select>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-md-12">
+								<button (click)="searchNecessityChart()" matTooltip="جستجو چارت های صرفیه"
+									class="btn bg-blue-800 btn-bold btn-square">
+									<i class="fa fa-search"></i>
+									دریافت معلومات </button>
+							</div>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</kt-portlet-body>
+		<ngx-datatable [columnMode]="'force'" class="bootstrap" [messages]="messages" [rows]="itemSearchList"
+			[columns]="columns">
+		</ngx-datatable>
+	</kt-portlet>
+	<div class="table-responsive">
+		<table class="table table-bordered table-head-solid table-hover">
+			<thead>
+				<tr>
+					<th class="font-weight-bold">شماره</th>
+					<th class="font-weight-bold">کود</th>
+					<th class="font-weight-bold">ریاست</th>
+					<th class="font-weight-bold">سال</th>
+					<th class="font-weight-bold"> عملیه ها</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let chart of chartSearchList; let i = index">
+					<td>{{ i + 1}}</td>
+					<td>{{chart.code}}</td>
+					<td>{{chart.orgUnitText}}</td>
+					<td>{{chart.fiscalYearText}}</td>
+					<td>
+						<button type="button" class="btn btn-sm btn-outline-primary"
+							(click)="editChart(chart.id)">ویرایش
+						</button>
+						<button type="button" class="btn btn-sm btn-outline-primary"
+							(click)="commissionDecision(chart.id)">نظر
+							کمسیون
+						</button>
+						<button type="button" class="btn btn-sm btn-outline-primary">اجناس تهویل شده
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+<ng-template ktComponentHost>
+</ng-template>

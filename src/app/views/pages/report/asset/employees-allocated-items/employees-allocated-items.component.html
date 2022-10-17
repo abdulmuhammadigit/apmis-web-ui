@@ -1,0 +1,58 @@
+<div>
+	<kt-portlet>
+		<kt-portlet-header [title]="' گزارش اجناس کارمندان '">
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<div>
+				<div class="kt-form">
+					<legend class="text-bold">جهت دریافت گزارش اجناس غیر مصرفی نزد کارمندان از گزینه های ذیل استفاده
+						نمائید</legend>
+					<form [formGroup]="itemSearchForm">
+						<div class="row">
+							<div class="form-group col-md-3">
+								<label class="col-form-label">کارمند</label>
+								<div class="input-group-prepend">
+									<input type="text" class="form-control" readonly formControlName="employeeText">
+									<input type="hidden" formControlName="employeeId" />
+									<button (click)="searchEmployee()" type="button" class="btn btn-outline-secondary">
+										<span class="fa fa-user"></span>
+									</button>
+								</div>
+
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<button (click)="searchItem()" class="btn btn-primary btn-bold "
+									matTooltip="جستجوی اجناس کارمندان">جستجو
+									<i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</kt-portlet-body>
+	</kt-portlet>
+	<div class="table-responsive">
+		<table class="table  table-bordered table-head-solid table-hover" style="max-height: 500px !important;">
+			<thead>
+				<th class="font-weight-bold">شماره</th>
+				<th class="font-weight-bold">جنس</th>
+				<th class="font-weight-bold">مشخصات جنس</th>
+				<th class="font-weight-bold">سریال نمبر </th>
+				<th class="font-weight-bold">تک نمبر </th>
+
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of itemSearchList; let i = index">
+					<td>{{ i + 1}}</td>
+					<td>{{item.item}}</td>
+					<td>{{item.itemDetail}}</td>
+					<td>{{item.serialNumber}}</td>
+					<td>{{item.tagNumber}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

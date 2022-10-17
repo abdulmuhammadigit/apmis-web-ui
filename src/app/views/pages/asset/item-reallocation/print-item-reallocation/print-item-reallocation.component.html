@@ -1,0 +1,92 @@
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-basic-title"> پرنت فورم اعاده تحویلخانه </h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<body id="print-section">
+	<div class="page">
+		<div class="col-md-12">
+			<table class="header_table" style="width:100%;">
+				<tr>
+					<td style="text-align:center;width:100%;vertical-align:top;">
+						<p style="margin-top:5px;font-size: 14px">اعاده جنس به تحویلخانه</p>
+						<p style="margin-top:5px;">فورم ف س ۸ </p>
+
+						<div class="form-barcode barecode-static-width"
+							style="margin-top:-10px;margin-bottom: -120px;text-align:left;">
+							<ngx-barcode [bc-value]="code" [bc-display-value]="true" [bc-format]="'CODE128'">
+							</ngx-barcode>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p style="text-align:right;font-size: 12px;margin-top: 50px;direction: rtl;">نمبر فورم : <br>
+							تاریخ :{{date}}</p>
+					</td>
+				</tr>
+			</table>
+			<br>
+
+			<p style="text-align:center;font-size: 12px">اقلامیکه در ذیل فهرست گردیده زیاد از
+				این مورد ضرورت
+				نمیباشد لطفا به همین
+				تاریخ اجراآت نموده
+				حساب
+				این شعبه را تصفیه نمایید.</p>
+			<table class="table table-striped table-hover" style="margin-top: 1px">
+				<tbody>
+					<tr>
+						<th colspan="1" style="width: 11%;">نمبر اقلام</th>
+						<th colspan="4" style="width: 11%;">تشریحات جنس</th>
+						<th colspan="1" style="width: 11%;">تعداد</th>
+						<th colspan="1" style="width: 11%;">حالت</th>
+
+					</tr>
+					<tr *ngFor="let list of  itemReallocatedList; let i = index">
+						<td colspan="1" style="width: 11%;">{{ i+1}}</td>
+						<td colspan="4" style="width: 11%;">{{ list.itemDetailText}}</td>
+						<td colspan="1" style="width: 11%;">{{ list.quantity}}</td>
+						<td colspan="1" style="width: 11%;">{{ list.status}}</td>
+					</tr>
+					<tr>
+						<td colspan="1"></td>
+						<td colspan="4">
+							<div>کارمند:{{this.employeeText}}</div><span [innerHTML]="this.description"></span>
+						</td>
+						<td colspan="1"></td>
+						<td colspan="1"></td>
+
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<div class="row col-md-12" style="text-align:right; direction: rtl;">
+				<p>امضا : ................................................. ماموریت :
+					................................................... </p>
+
+				<p>امضا کننده ذیل از رسید اقلام فوق
+					تصدیق میدارد. <br> امضا : ................................................. تاریخ :
+					.........................................................</p>
+				<hr>
+				<p>توریع در یک اصل و یک کاپی ترتیب گردد . <br> الف : اصل آن بمعه جنس به تحویلخانه تسلیم شود شعبه
+					تحویلخانه در کارت ثبت ذخیره معلومات را درج نموده و اصل مذکور را به شعبه محاسبه جنسی جهت معاملات
+					حسابی تقدیم میدارد .<br> ب : کاپی آن به شعبه جنس را اعاده میدارد به قسم رسید ارسال می گردد. </p>
+			</div>
+		</div>
+	</div>
+</body>
+<div class="col-md-12">
+	<button [useExistingCss]="true" type="button" class="btn btn-primary btn-bold " printSectionId="print-section"
+		ngxPrint>
+		پرنت <i class="fa fa-print"></i>
+	</button>
+</div>

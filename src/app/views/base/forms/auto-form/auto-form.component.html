@@ -1,0 +1,12 @@
+<kt-portlet >
+	<kt-portlet-body>
+		<form [formGroup]="form" >
+			<div *ngFor='let row of formConfig.rows' class='row' >
+				<div *ngFor='let ctrl of row.elements' class='col'>
+					<input *ngIf="ctrl.type === 'text'"  type="text" [name]="ctrl.name" >
+					<select *ngIf="ctrl.type === 'select'" [name]="ctrl.name" formControlName="{{ctrl.name}}" ></select>
+				</div>
+			</div>
+		</form>
+	</kt-portlet-body>
+</kt-portlet>

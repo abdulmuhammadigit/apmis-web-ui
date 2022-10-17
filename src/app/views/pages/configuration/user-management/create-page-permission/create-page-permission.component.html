@@ -1,0 +1,31 @@
+<kt-portlet>
+	<kt-portlet-header [title]="'مدیریت صلاحیت ها'">
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<form [formGroup]="createForm" class="kt-form kt-form--group-seperator-dashed" (ngSubmit)="save()">
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label class="col-form-label">Object</label>
+						<ng-select [items]="entitySelectList" bindValue="id" bindLabel="title"
+							formControlName="entityId" (change)="entityChanged()">
+						</ng-select>
+						<span *ngIf="isControlHasError('entityId','required')" class="form-text text-danger">Field Is
+							Required</span>
+					</div>
+					<div class="form-group col-md-6">
+						<label class="col-form-label">حذف صلاحیت</label>
+						<ng-select [items]="permissionSelectList" bindLabel="title" bindValue="id"
+							formControlName="permissionIds" [multiple]="true">
+						</ng-select>
+
+					</div>
+				</div>
+
+				<div class="row text-right">
+					<button class="btn btn-primary" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

@@ -1,0 +1,64 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">جستجو راپور رسید </h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+
+    <div class="kt-form">
+        <legend class="text-bold">جهت جستجو و دریافت راپور رسید گزینه های ذیل را انتخاب نمائید</legend>
+        <form [formGroup]="searchForm">
+            <div class="kt-form__section kt-form__section--first">
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <label class="col-form-label">کود نمبر </label>
+                        <input type="text" formControlName="code" class="form-control" placeholder="کود  راپور رسید   ">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button (click)="searchItemReceipt()" class="btn btn-primary btn-bold "
+                            matTooltip="جستجوی راپور رسید  ">جستجو
+                            <i class="fa fa-search"></i></button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <table class="table table-bordered table-head-solid table-hover">
+        <thead>
+            <tr>
+                <th class="font-weight-bold col-per-5"> شماره</th>
+                <th class="font-weight-bold col-per-20"> کود نمبر</th>
+                <!-- <th class="font-weight-bold">نمبر راپور</th>
+    											<th class="font-weight-bold"> تاریخ مکتوب</th> -->
+                <th class="font-weight-bold col-per-10"> نوعیت رسید</th>
+                <th class="font-weight-bold col-per-20"> تاریخ رسید</th>
+                <th class="font-weight-bold col-per-10"> بل نمبر </th>
+                <th class="font-weight-bold col-per-20"> نام معتمد</th>
+                <th class="font-weight-bold col-per-30"> عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of  itemReceiptsList; let i = index">
+                <td>{{ i + 1}}</td>
+                <td>{{ list.code}}</td>
+                <!-- <td>{{ list.documentNumber }}</td>
+        											<td>{{ list.documentDate }}</td> -->
+                <td>{{ list.itemReceiptTypeName }}</td>
+                <td>{{ list.receiveDate }}</td>
+                <td>{{ list.billNumber }}</td>
+                <td>{{ list.stockKeeperName}}</td>
+
+                <td>
+                    <button type="button" class="btn" (click)="select(list)" ngbTooltip="انتخاب"><i class="fa icon-select2"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

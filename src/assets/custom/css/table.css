@@ -1,0 +1,83 @@
+.header-gray{
+	background-color: #bfbfbf;
+}
+
+.search-table-background{
+	background-color: #ffffff;
+}
+
+.btn-table{
+	padding-top: 0.2rem !important;
+	padding-bottom: 0.2rem !important;
+}
+
+.table{
+	background-color: #ffffff !important;
+}
+
+.table-responsive{
+	height: 280px !important;
+}
+
+
+/* table columns width */
+.col-per-5{
+	min-width: 0.5% !important;
+}
+.col-per-10{
+	min-width: 1% !important;
+}
+.col-per-15{
+	min-width: 1.5% !important;
+}
+.col-per-20{
+	min-width: 2% !important;
+}
+.col-per-25{
+	min-width: 2.5% !important;
+}
+.col-per-30{
+	min-width: 3% !important;
+}
+.col-per-35{
+	min-width: 3.5% !important;
+}
+.col-per-40{
+	min-width: 4% !important;
+}
+.col-per-45{
+	min-width: 4.5% !important;
+}
+.col-per-50{
+	min-width: 5% !important;
+}
+.col-per-55{
+	min-width: 5.5% !important;
+}
+.col-per-60{
+	min-width: 6% !important;
+}
+.col-per-65{
+	min-width: 6.5% !important;
+}
+.col-per-70{
+	min-width: 7% !important;
+}
+.col-per-75{
+	min-width: 7.5% !important;
+}
+.col-per-80{
+	min-width: 8% !important;
+}
+.col-per-85{
+	min-width: 8.5% !important;
+}
+.col-per-90{
+	min-width: 9% !important;
+}
+.col-per-95{
+	min-width: 9.5% !important;
+}
+.col-per-100{
+	min-width: 10% !important;
+}

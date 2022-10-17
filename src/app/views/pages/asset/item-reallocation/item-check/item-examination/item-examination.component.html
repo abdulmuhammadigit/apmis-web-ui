@@ -1,0 +1,76 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-basic-title">مشخصات اجناس</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<div class="kt-form">
+		<form [formGroup]="itemExaminationForm">
+			<div class="row">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th class="font-weight-bold col-per-5"> شماره </th>
+							<th class="font-weight-bold col-per-20"> جنس</th>
+							<th class="font-weight-bold"> سریال نمبر </th>
+							<th class="font-weight-bold"> نمبر برچسب </th>
+							<!-- <th class="font-weight-bold"> موقیعت جنس </th> -->
+							<th class="font-weight-bold"> حالت جنس </th>
+							<th class="font-weight-bold col-per-30"> نظر هیت </th>
+							<th class="font-weight-bold"> عملیه ها </th>
+						</tr>
+					</thead>
+					<tbody formArrayName="ItemReallocationSpecificationModel">
+						<tr *ngFor="let item of  ItemReallocationSpecificationModel.controls; let i = index"
+							[formGroupName]="i">
+							<td>{{ i + 1}}</td>
+
+							<td>
+								<input formControlName="itemDetail" class="form-control" readonly>
+							</td>
+
+							<td>
+								<input formControlName="serialNumber" class="form-control" readonly>
+							</td>
+							<td>
+								<input formControlName="tagNumber" class="form-control" readonly>
+							</td>
+							<!-- <td>
+								<input formControlName="location" class="form-control">
+							</td> -->
+
+							<td>
+								<ng-select formControlName="boardStatusId">
+									<ng-option [value]="0"></ng-option>
+									<ng-option [value]="status.id" *ngFor="let status of statusList">
+										{{status.name}}
+									</ng-option>
+								</ng-select>
+							</td>
+							<td>
+								<textarea formControlName="examinerBoard" class="form-control" rows="1"></textarea>
+							</td>
+							<td>
+								<button (click)="submit(i)" class="btn btn-primary btn-sm btn-outline-primary">ثبت
+									<i class="fa fa-save"></i></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+			<hr>
+
+			<div class="row">
+				<div class="col-md-12">
+					<kt-process-tracking class="pull-left"></kt-process-tracking>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<ng-template ktComponentHost>
+
+</ng-template>

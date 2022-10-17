@@ -1,0 +1,77 @@
+<kt-portlet>
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-outline-primary btn-bold ">جستجو
+				<i class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<legend class="text-bold">جهت ثبت نمودن کارمند جدید از این صفحه استفاده نمائید</legend>
+			<form [formGroup]="EmployeeForm">
+				<div class="kt-form__section kt-form__section--first">
+					<div class="form-group kt-form__group row">
+						<div class="col-md-3">
+							<label class="col-form-label">کود نمبر <span *ngIf="isControlHasError('code','required')"
+									class="text-danger">*</span></label>
+							<input type="text" readonly formControlName="code" class="form-control"
+								placeholder="کود برای کارمند توسط سیستم ایجاد میگردد">
+						</div>
+						<div class="col-md-3">
+							<label class="col-form-label">نام <span *ngIf="isControlHasError('name','required')"
+									class="text-danger">*</span></label>
+							<input type="text" formControlName="name" class="form-control">
+						</div>
+						<div class="col-md-3">
+							<label class="col-form-label">تخلص <span *ngIf="isControlHasError('lastName','required')"
+									class="text-danger">*</span></label>
+							<input type="text" formControlName="lastName" class="form-control">
+						</div>
+						<div class="col-md-3">
+							<label class="col-form-label">
+								نام پدر
+								<span *ngIf="isControlHasError('fatherName','required')"
+									class="text-danger">*</span></label>
+							<input type="text" formControlName="fatherName" class="form-control">
+						</div>
+					</div>
+					<div class="form-group kt-form__group row">
+						<div class="col-md-3">
+							<label class="col-form-label">نام پدر کلان <span
+									*ngIf="isControlHasError('grandFatherName','required')"
+									class="text-danger">*</span></label>
+							<input type="text" formControlName="grandFatherName" class="form-control">
+						</div>
+						<div class="col-md-3">
+							<label class="col-form-label">نمبر کارت<span *ngIf="isControlHasError('cardId','required')"
+									class="text-danger">*</span></label>
+							<input type="text" formControlName="cardId" class="form-control">
+						</div>
+						<div class="col-md-3">
+							<label class="col-form-label">موقف وظیفوی <span
+									*ngIf="isControlHasError('position','required')"
+									class="text-danger">*</span></label>
+							<input type="text" formControlName="position" class="form-control">
+						</div>
+						<div class="col-md-3">
+							<label class="col-form-label">ریاست <span *ngIf="isControlHasError('orgUnitId','required')"
+									class="text-danger">*</span></label>
+							<ng-select autocorrect="true" formControlName="orgUnitId" [virtualScroll]="true"
+								bindLabel="name" bindValue="id" [clearable]="false">
+								<ng-option *ngFor="let org of orgunit" [value]="org.id">{{org.name}}
+								</ng-option>
+							</ng-select>
+						</div>
+					</div>
+					<br>
+				</div>
+				<hr>
+				<div class="row">
+					<button (click)="submit()" class="btn btn-primary btn-bold ">ثبت <i class="fa fa-save"></i></button>
+					<button (click)="newEmployee()" class="btn btn-primary btn-bold ">جدید <i
+							class="fa fa-user"></i></button>
+				</div>
+			</form>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

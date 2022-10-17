@@ -1,0 +1,38 @@
+<div class="kt-section">
+	<div class="col-md-12">
+		<div class="row justify-content-between mb-3">
+			<h6 class="kt-section__heading flex-column">
+				مشخصه های انتخاب شده جنس:
+			</h6>
+			<button type="button" class="btn btn-outline-primary btn-bold " (click)="addNewAttributes()"> مشخصه
+				جدید <i class="fa fa-save"></i></button>
+		</div>
+	</div>
+
+	<div class="kt-form--group-seperator-dashed mb-3"></div>
+
+	<div class="row">
+		<div class="col-md-12 table-responsive">
+			<table class="table table-bordered table-head-solid table-hover">
+				<thead>
+					<tr>
+						<th>شماره</th>
+						<th>مشخصه</th>
+						<!-- <th>عملیات</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let Attribute of allAttributes, let i = index">
+						<td>{{i+1}}</td>
+						<td>{{Attribute.attributeText}}</td>
+						<!-- <td>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    (click)="delete(Attribute.id)">حذف</button>
+                            </td> -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</div>

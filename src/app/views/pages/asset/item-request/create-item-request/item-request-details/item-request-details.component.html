@@ -1,0 +1,67 @@
+<div class="modal-body">
+    <div class="kt-form">
+        <form [formGroup]="itemDetailsForm">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="col-form-label">تفصیلات جنس</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control has-selector" readonly (click)="searchItemList()" formControlName="itemDetailText"
+                            [class.invalid]="">
+                        <input type="hidden" formControlName="itemDetailId" />
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-default" (click)="searchItemList()">
+                                <span class="fa fa-archive"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="col-form-label">مقدار</label>
+                    <input type="number" formControlName="quantity" class="form-control" step="any">
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="col-form-label">واحد</label>
+                    <ng-select formControlName="unitId" class="form-control" [virtualScroll]="true" bindLabel="name"
+                        bindValue="id" [clearable]="false">
+                        <ng-option [value]="item.id" [disabled]="item.disabled" *ngFor="let item of unitType">
+                            {{item.name}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="col-form-label">موجودیت جنس</label>
+                    <ng-select #NotExistItem formControlName="notExistItem" [virtualScroll]="true" class="form-control" [clearable]="false" bindValue="value" bindLabel="text">
+                        <ng-option [value]="item.value" *ngFor="let item of itemExistList">
+                            {{item.text}}                        
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-form-label">ملاحظات</label>
+                    <textarea formControlName="description" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- <button (click)="searchItem()" class="btn btn-primary btn-bold " matTooltip="جستجوی مشخصات">جستجو
+	                        <i class="fa fa-search"></i></button> -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn bg-blue-800 btn-bold btn-square pull-right">
+        <i class="fa fa-save"></i>
+        افزودن جنس
+    </button>
+</div>
+
+
+<kt-isd-modal #searchItemModal [modalConfig]="searchItemModalConfig">
+    <kt-search-item-detail (itemSelected)="itemSelected($event);">
+    </kt-search-item-detail>
+</kt-isd-modal>

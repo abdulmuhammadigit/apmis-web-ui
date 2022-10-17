@@ -1,0 +1,127 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-basic-title">راپوررسید</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+
+	<div class="kt-form">
+		<form [formGroup]="itemReceiptSpecificationSearchForm">
+
+			<div class="row">
+
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th class="font-weight-bold col-per-5"> شماره </th>
+							<th class="font-weight-bold col-per-10"> کود رسید </th>
+							<!-- <th class="font-weight-bold"> تاریخ رسید </th> -->
+							<!-- <th class="font-weight-bold"> کارمند </th> -->
+							<!-- <th class="font-weight-bold"> تخلص </th>
+                            <th class="font-weight-bold"> اسم پدر </th> -->
+							<!-- <th class="font-weight-bold"> نوعیت رسید </th> -->
+							<!-- <th class="font-weight-bold"> جنس </th> -->
+							<th class="font-weight-bold col-per-10"> جزئیات جنس </th>
+							<th class="font-weight-bold col-per-5"> واحد </th>
+							<th class="font-weight-bold col-per-5"> قیمت </th>
+							<th class="font-weight-bold"> سریال نمبر </th>
+							<th class="font-weight-bold"> نمبر برچسب </th>
+							<th class="font-weight-bold"> موقیعت جنس </th>
+							<!-- <th class="font-weight-bold"> تاریخ انقضاء </th> -->
+							<th class="font-weight-bold"> تسلیم دهی به </th>
+							<th class="font-weight-bold"> کارمند </th>
+							<th class="font-weight-bold"> ثبت </th>
+
+						</tr>
+					</thead>
+					<tbody formArrayName="itemReceiptSpecificationList">
+						<tr *ngFor="let item of  itemReceiptSpecificationList.controls; let i = index"
+							[formGroupName]="i">
+							<td class="kt-padding-0">{{ i + 1}}</td>
+							<td class="kt-padding-0">
+								<input formControlName="code" class="form-control" readonly>
+							</td>
+							<!-- <td>
+                                <input formControlName="receiveDate" class="form-control">
+                            </td> -->
+							<!-- <td>
+                                <input class="form-control" readonly formControlName="employeeText">
+
+                            </td> -->
+							<!-- <td>
+                                <input formControlName="name" class="form-control">
+                            </td>
+                            <td>
+                                <input formControlName="lastName" class="form-control">
+                            </td>
+                            <td>
+                                <input formControlName="fatherName" class="form-control">
+                            </td> -->
+							<!-- <td>
+                                <input formControlName="itemReceiptTypeText" class="form-control">
+                            </td> -->
+							<!-- <td>
+                                <input formControlName="item" class="form-control">
+                            </td> -->
+							<td class="kt-padding-0">
+								<input formControlName="itemDetail" class="form-control" readonly>
+							</td>
+							<td class="kt-padding-0">
+								<input formControlName="unitText" class="form-control" readonly>
+							</td>
+							<td class="kt-padding-0">
+								<input formControlName="price" class="form-control" readonly>
+							</td>
+							<td class="kt-padding-0">
+								<input formControlName="serialNumber" class="form-control" readonly>
+							</td>
+							<td class="kt-padding-0">
+								<input formControlName="tagNumber" class="form-control" readonly>
+							</td>
+							<td class="kt-padding-0">
+								<input formControlName="location" class="form-control" readonly>
+							</td>
+							<!-- <td>
+                                <input formControlName="expirationDate" class="form-control">
+                            </td> -->
+							<!-- <td>
+                                <ng-select formControlName="statusId" [items]="statusList"
+                                    (change)="searchEmployee($event,i)" bindLabel="name" bindValue="id">
+                                </ng-select>
+                            </td> -->
+							<td class="kt-padding-0">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<select formControlName="statusId" class="form-control"
+											(change)="enableEmployee(i)">
+											<option *ngFor="let l of statusList" [value]="l.id">{{l.name}}</option>
+										</select>
+										<button (click)="searchEmployee(i)" type="button"
+											[disabled]="btnEmployeeDisable[i]" class="btn btn-outline-secondary">
+											<span class="fa fa-user"></span>
+										</button>
+									</div>
+								</div>
+							</td>
+							<td class="kt-padding-0">
+								<input type="text" class="form-control" readonly formControlName="toEmployeeText">
+								<input type="hidden" formControlName="toEmployeeId" />
+							</td>
+							<td class="kt-padding-0">
+								<button (click)="submit(i)" class="btn btn-sm btn-primary">ثبت
+									<i class="fa fa-save"></i></button>
+							</td>
+
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</form>
+	</div>
+</div>
+
+<ng-template ktComponentHost>
+
+</ng-template>

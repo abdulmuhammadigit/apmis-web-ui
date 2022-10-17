@@ -1,0 +1,21 @@
+.demo-chart {
+  height: 400px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    background-color: lightgrey;
+    padding: 1.1em;
+  }
+}
+.panel-body{
+    background-color: white;
+    margin-bottom: 20px;
+}
+
+dp-date-picker{
+    width: 100%;
+}
+

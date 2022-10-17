@@ -1,0 +1,49 @@
+<div class="modal-header">
+	<h5 class="modal-title" id="modal-basic-title">پرنت کارت ثبت ملکیت</h5>
+	<button type="button" class="close text-left " aria-label="Close" (click)="activeModel.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+
+<body id="print-section">
+	<div class="page">
+		<div class="col-md-12">
+			<table class="table table-striped table-hover"><br>
+				<p>کارت ثبت ملکیت:</p>
+				<tbody>
+					<!-- <tr>
+						<td colspan="2" style="width: 100%;"> کارت ثبت ملکیت:</td>
+					</tr> -->
+					<tr>
+						<td colspan="1" style="width: 50%;"> نام کارمند : {{employee}}</td>
+						<td colspan="1" style="width: 50%;"> کود کارمند : {{employeeCode}}</td>
+					</tr>
+					<tr>
+						<td colspan="1" style="width: 50%;"> مشخصات جنس : {{detail}}</td>
+						<td colspan="1" style="width: 50%;"> نمبر جنس : {{itemCode}}</td>
+					</tr>
+					<tr>
+						<td colspan="1" style="width: 50%;"> نمبر راپور رسیدات : {{itemRecieptCode}}</td>
+						<td colspan="1" style="width: 50%;"> تاریخ توزیع : {{distributionDate}}</td>
+					</tr>
+					<tr>
+						<td colspan="1" style="width: 50%;"> قیمت حین مواصلت : {{itemPrice}}</td>
+						<td colspan="1" style="width: 50%;">تگ نمبر : {{tagNumber}}</td>
+					</tr>
+					<tr>
+						<td colspan="1" style="width: 50%;"> مدت تخمینی : {{expirationDate}}</td>
+						<td colspan="1" style="width: 50%;"> سریال نمبر : {{serialNumber}}</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+<div class="col-md-12">
+	<button [useExistingCss]="true" type="button" class="btn btn-primary btn-bold " printSectionId="print-section"
+		ngxPrint>
+		پرنت <i class="fa fa-print"></i>
+	</button>
+</div>

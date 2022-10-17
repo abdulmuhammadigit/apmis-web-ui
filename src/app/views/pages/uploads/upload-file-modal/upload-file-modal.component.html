@@ -1,0 +1,89 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-basic-title">ضمایم</h4>
+	<button type="button" class="close pull-left" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<form [formGroup]="documentForm" (ngSubmit)="submit()">
+		<div class="row">
+			<div class="col-md-3">
+				<label>فایل<span *ngIf="isControlHasError('file','required')" class="text-danger">*</span></label>
+				<div>
+					<label class="custom-file form-control">
+						<input type="file" id="file" formControlName="file" (change)="handleFileInput($event)">
+						<span class="file-custom" style="border: none !important;"></span>
+					</label>
+					<label> {{filename}} </label>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<label> نمبر سند</label>
+				<input type="text" class="form-control" formControlName="documentNumber">
+			</div>
+			<div class="col-md-3">
+				<label>منبع سند </label>
+				<input type="text" class="form-control" formControlName="documentSource">
+
+			</div>
+			<div class="col-md-3">
+				<label> نوعیت سند<span *ngIf="isControlHasError('documentTypeId','required')"
+						class="text-danger">*</span></label>
+				<ng-select formControlName="documentTypeId">
+					<ng-option class="form-control" [value]="documentType.id"
+						*ngFor="let documentType of documentTypeList">
+						{{documentType.name}}
+					</ng-option>
+				</ng-select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<label>تشریحات :</label>
+				<textarea class="form-control" formControlName="description">
+        				</textarea>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="form-group col-md-12">
+				<button class="btn btn-primary btn-labeled">ثبت <b><i class="icon-floppy-disks"></i></b></button>
+				<button (click)="newRecord()" class="btn btn-primary btn-bold">جدید <i
+						class="fa fa-window-restore"></i></button>
+			</div>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-striped table-head-solid table-hover">
+				<thead>
+					<tr>
+						<th>شماره</th>
+						<th>نمبر سند </th>
+						<th>منبع سند</th>
+						<th>نوعیت سند</th>
+						<th> نام بخش</th>
+						<th> عملیه ها </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let list of SearchList; let i = index">
+						<td>{{i + 1}}</td>
+						<td>{{list.documentNumber}}</td>
+						<td>{{list.documentSource}}</td>
+						<td>{{list.documentTypeText}}</td>
+						<td>{{list.sectionName}}</td>
+						<td>
+							<button type="button" class="btn btn-sm" (click)="download(list.id)"><i
+									class="fa fa-download" aria-hidden="true"></i>دانلود
+							</button>
+							<button type="button" class="btn btn-sm text-danger" (click)="delete(i,list.id)"><i
+									class="flaticon-delete" aria-hidden="true"></i>حذف
+							</button>
+						</td>
+
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</form>
+</div>

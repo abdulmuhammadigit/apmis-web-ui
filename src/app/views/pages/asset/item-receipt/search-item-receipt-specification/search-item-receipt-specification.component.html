@@ -1,0 +1,58 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-basic-title">راپوررسید</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+
+	<div class="kt-form">
+		<form [formGroup]="itemReceiptSpecificationSearchForm">
+
+			<div class="row">
+
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th class="font-weight-bold"> شماره </th>
+							<th class="font-weight-bold"> کود رسید </th>
+							<th class="font-weight-bold"> تاریخ رسید </th>
+							<th class="font-weight-bold"> معتمد </th>
+							<th class="font-weight-bold"> نوعیت رسید </th>
+							<th class="font-weight-bold"> جنس </th>
+							<th class="font-weight-bold"> جزئیات جنس </th>
+							<th class="font-weight-bold"> واحد </th>
+							<th class="font-weight-bold"> قیمت </th>
+							<th class="font-weight-bold"> سریال نمبر </th>
+							<th class="font-weight-bold"> نمبر برچسب </th>
+							<th class="font-weight-bold"> موقیعت جنس </th>
+							<th class="font-weight-bold"> تاریخ انقضاء </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of  itemReceiptSpecificationList; let i = index">
+							<td>{{ i + 1}}</td>
+							<td>{{ item.code}}</td>
+							<td>{{ item.receiveDate }}</td>
+							<td>{{ item.name + " " +item.lastName+ " " + " " + item.fatherName }}</td>
+							<td>{{ item.itemReceiptTypeText }}</td>
+							<td>{{ item.item}}</td>
+							<td>{{ item.itemDetail }}</td>
+							<td>{{ item.unitText }}</td>
+							<td>{{ item.price }}</td>
+							<td>{{ item.serialNumber }}</td>
+							<td>{{ item.tagNumber }}</td>
+							<td>{{ item.location }}</td>
+							<td>{{ item.expirationDate }}</td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</form>
+	</div>
+</div>
+
+<ng-template ktComponentHost>
+
+</ng-template>

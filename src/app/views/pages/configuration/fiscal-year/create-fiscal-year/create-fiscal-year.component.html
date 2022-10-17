@@ -1,0 +1,77 @@
+<kt-portlet>
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn btn-outline-primary btn-bold " matTooltip="برگشت به جستجو">جستجو
+				<i class="fa fa-search"></i></button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<form [formGroup]="fiscalYearForm">
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label> سال مالی<span *ngIf="isControlHasError('shamsiYear','required')"
+								class="text-danger">*</span></label>
+						<ng-select formControlName="shamsiYear">
+							<ng-option class="form-control" [value]="year" *ngFor="let year of shamsiYearList">
+								{{year}}
+							</ng-option>
+						</ng-select>
+					</div>
+					<div class="form-group col-md-3">
+
+						<label> تاریخ شروع سال مالی به شمسی <span
+								*ngIf="isControlHasError('startDateShamsi','required')"
+								class="text-danger">*</span></label>
+						<dp-date-picker dir="rtl" mode="day" formControlName="startDateShamsi" theme="dp-material"
+							[config]="dateService.dateConfigShamsi" (keypress)="$event.preventDefault()"
+							(onChange)="setStartGregorianDate($event);" #startShamsiDate>
+						</dp-date-picker>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label> تاریخ شروع سال مالی به میلادی <span *ngIf="isControlHasError('startDate','required')"
+								class="text-danger">*</span></label>
+						<dp-date-picker dir="rtl" mode="day" theme="dp-material"
+							[config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()"
+							(onChange)="setStartShamsiDate($event);" formControlName="startDate" #startDate>
+						</dp-date-picker>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-3">
+
+						<label> تاریخ ختم سال مالی به شمسی <span *ngIf="isControlHasError('endDateShamsi','required')"
+								class="text-danger">*</span></label>
+						<dp-date-picker dir="rtl" mode="day" formControlName="endDateShamsi" theme="dp-material"
+							[config]="dateService.dateConfigShamsi" (keypress)="$event.preventDefault()"
+							(onChange)="setEndGregorianDate($event);" #endShamsiDate>
+						</dp-date-picker>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label> تاریخ ختم سال مالی به میلادی <span *ngIf="isControlHasError('endDate','required')"
+								class="text-danger">*</span></label>
+						<dp-date-picker dir="rtl" mode="day" theme="dp-material"
+							[config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()"
+							(onChange)="setEndShamsiDate($event);" formControlName="endDate" #endDate>
+						</dp-date-picker>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12">
+						<button (click)="submit()" class="btn btn-primary btn-bold ">ثبت <i
+								class="fa fa-save"></i></button>
+						<button (click)="newRecord()" class="btn btn-primary btn-bold ">جدید <i
+								class="fa fa-window-restore"></i></button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+
+
+	</kt-portlet-body>
+</kt-portlet>

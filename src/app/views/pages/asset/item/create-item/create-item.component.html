@@ -1,0 +1,97 @@
+<kt-portlet>
+	<kt-portlet-header [title]="formTitle">
+		<ng-container ktPortletTools>
+			<button (click)="cancelClick()" class="btn bg-teal-800 btn-bold btn-square">
+				<i class="fa fa-search"></i>
+				فهرست عمومی اجناس </button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form">
+			<form [formGroup]="itemForm">
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label>نام جنس<span *ngIf="isControlHasError('name','required')"
+								class="text-danger">*</span></label>
+						<input type="text" class="form-control" formControlName="name">
+					</div>
+
+					<div class="form-group col-md-3">
+						<label> کتگوری<span *ngIf="isControlHasError('categoryId','required')"
+								class="text-danger">*</span></label>
+						<ng-select formControlName="categoryId" class="form-control">
+							<ng-option [value]="category.id" [disabled]="category.disabled"
+								*ngFor="let category of categoryList">
+								{{category.name}}
+							</ng-option>
+						</ng-select>
+					</div>
+					<div class="form-group col-md-3">
+						<label> نوعیت جنس<span *ngIf="isControlHasError('consumable','required')"
+								class="text-danger">*</span></label>
+						<ng-select class="form-control" formControlName="consumable">
+							<ng-option value="">---</ng-option>
+							<ng-option value="true">مصرفی</ng-option>
+							<ng-option value="false">غیر مصرفی</ng-option>
+						</ng-select>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label> واحد<span *ngIf="isControlHasError('unitId','required')"
+								class="text-danger">*</span></label>
+						<ng-select formControlName="unitId" class="form-control">
+							<ng-option [value]="unit.id" [disabled]="unit.disabled" *ngFor="let unit of unitsList">
+								{{unit.name}}
+							</ng-option>
+						</ng-select>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12">
+						<button (click)="submit()" class="btn bg-blue-800 btn-bold btn-square">
+							<i class="fa fa-save"></i>
+							ثبت جنس
+
+						</button>
+						<button (click)="newRecord()" class="btn btn-default btn-bold btn-square kt-margin-l-10">
+							<i class="fa fa-window-restore"></i>
+							فورم جدید
+
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+	</kt-portlet-body>
+</kt-portlet>
+<kt-portlet [class.kt-hidden]="hideTab$ | async">
+	<kt-portlet-body>
+		<div class="kt-section">
+			<div class="kt-section__content">
+				<ul ngbNav #nav="ngbNav" class="nav-tabs">
+					<li [ngbNavItem]="1">
+						<a ngbNavLink>مشخصات جنس</a>
+						<ng-template ngbNavContent>
+							<kt-item-attribute [itemId]="itemId" [curCategoryId]="curCategoryId">
+							</kt-item-attribute>
+						</ng-template>
+					</li>
+					<li [ngbNavItem]="2">
+						<a ngbNavLink>شرح مشخصات جنس</a>
+						<ng-template ngbNavContent>
+							<kt-item-attribute-value [itemId]="itemId" [itemName]="itemName">
+							</kt-item-attribute-value>
+						</ng-template>
+					</li>
+
+				</ul>
+
+				<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

@@ -1,0 +1,37 @@
+<kt-portlet>
+    <kt-portlet-header [title]="formTitle">
+        <ng-container ktPortletTools>
+            <button (click)="cancelClick()" class="btn btn-outline-primary btn-bold " matTooltip="برگشت به جستجو">جستجو
+                <i class="fa fa-search"></i></button>
+        </ng-container>
+    </kt-portlet-header>
+    <kt-portlet-body>
+        <div class="kt-form">
+            <legend class="text-bold">جهت ثبت نمودن تمویل کننده جدید از این صفحه استفاده نمائید</legend>
+            <form [formGroup]="saveDonorForm">
+                <div class="kt-form__section kt-form__section--first">
+                    <div class="form-group kt-form__group row">
+                        <div class="col-md-4">
+                            <label class="col-form-label">نام <span *ngIf="isControlHasError('name','required')"
+                                    class="text-danger">*</span></label>
+                            <input type="text" formControlName="name" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-form-label">مخفف <span
+                                    *ngIf="isControlHasError('abbreviation','required')"
+                                    class="text-danger">*</span></label>
+                            <input type="text" formControlName="abbreviation" class="form-control">
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <hr>
+                <div class="row">
+                    <button (click)="submit()" class="btn btn-primary btn-bold ">ثبت <i class="fa fa-save"></i></button>
+                    <button (click)="newDonorForm()" class="btn btn-primary btn-bold ">جدید <i
+                            class="fa fa-user"></i></button>
+                </div>
+            </form>
+        </div>
+    </kt-portlet-body>
+</kt-portlet>

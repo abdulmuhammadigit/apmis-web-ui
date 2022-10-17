@@ -1,0 +1,15 @@
+﻿@font-face {
+    font-family: 'Nassim';
+    src: url('../fonts/NassimArabic-Regular.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/NassimArabic-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    /*url('Fonts/NassimArabic-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/NassimArabic-Regular.woff?version=1') format('woff'), /* Pretty Modern Browsers */
+    url('../fonts/NassimArabic-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/nassimarabic-regular-webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+body {
+    font-family: Nassim;
+    font-size: 18px;
+}
+

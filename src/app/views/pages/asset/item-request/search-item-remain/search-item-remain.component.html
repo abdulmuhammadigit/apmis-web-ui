@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">جستجو اجناس </h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+
+    <div class="kt-form">
+        <legend class="text-bold">جهت دریافت اجناس  با تمام مشخصات آن از گزینه های ذیل استفاده نمائید</legend>
+        <form [formGroup]="itemSearchForm">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label class="col-form-label">جنس</label>
+                    <input type="text" class="form-control" value="{{itemName}}" disabled>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="col-form-label">جزئیات</label>
+
+                    <ng-select formControlName="detailId" [virtualScroll]="true" [clearable]="true">
+                        <ng-option [value]="item.id" [disabled]="item.disabled" *ngFor="let item of itemDetailList">
+                            {{item.nameText}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button (click)="searchItem()" class="btn btn-primary btn-bold " matTooltip="جستجوی اجناس">جستجو
+                        <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <hr>
+    <div class="table-responsive">
+        <table class="table  table-bordered table-head-solid table-hover" style="max-height: 500px !important;">
+            <thead>
+                <th class="font-weight-bold">شماره</th>
+                <th class="font-weight-bold">نام جنس</th>
+                <th class="font-weight-bold">تعداد </th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of itemSearchList; let i = index">
+                    <td>{{ i + 1}}</td>
+                    <td>{{item.text}}</td>
+                    <td>{{item.count}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

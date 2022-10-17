@@ -1,0 +1,73 @@
+<kt-portlet>
+	<kt-portlet-header>
+		<ng-container ktPortletTools>
+			<button (click)="back()" class="btn btn-outline-primary btn-labeled">بازگشت<b><i
+						class="icon-arrow-left32"></i></b></button>
+		</ng-container>
+	</kt-portlet-header>
+
+	<kt-portlet-body>
+		<div>
+			<div class="kt-form">
+				<form [formGroup]="createStageForm">
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label class="col-form-label">اسم:
+								<span *ngIf="isControlHasError('name','required')" class="text-danger">*</span>
+							</label>
+							<input type="text" formControlName="name" class="form-control">
+						</div>
+						<div class="form-group col-md-2">
+							<label class="col-form-label">نوع مرحله:
+								<span *ngIf="isControlHasError('stageTypeId','required')" class="text-danger">*</span>
+							</label>
+							<select class="form-control" formControlName="stageTypeId">
+								<option value="">---</option>
+								<option *ngFor="let type of stageTypeList" value="{{type.id}}">
+									{{type.name}}</option>
+							</select>
+						</div>
+						<div class="form-group col-md-2">
+							<label class="col-form-label">جریان کار:
+								<span *ngIf="isControlHasError('workFlowId','required')" class="text-danger">*</span>
+							</label>
+							<select class="form-control" formControlName="workFlowId">
+								<option value="">---</option>
+								<option *ngFor="let flow of workFlowList" value="{{flow.id}}">
+									{{flow.name}}</option>
+							</select>
+						</div>
+						<div class="form-group col-md-2">
+							<label class="col-form-label">آیا فعال است؟</label>
+							<div>
+								<span class="kt-switch kt-switch--icon-check">
+									<label>
+										<input type="checkbox" formControlName='isActive' />
+										<span></span>
+									</label>
+								</span>
+							</div>
+						</div>
+						<div class="form-group col-md-2">
+							<label class="col-form-label">ویرایش معلومات</label>
+							<div>
+								<span class="kt-switch kt-switch--icon-check">
+									<label>
+										<input type="checkbox" formControlName='isEditable' />
+										<span></span>
+									</label>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<button (click)="save()" class="btn btn-primary btn-labeled">ثبت <b><i
+										class="icon-floppy-disks"></i></b></button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

@@ -1,0 +1,117 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-basic-title">{{formTitle}}</h4>
+	<button type="button" class="close pull-left" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+
+
+	<div class="kt-form" [hidden]="isPrintable">
+		<form [formGroup]="itemForm">
+
+
+
+			<table class="table table-bordered table-head-solid table-hover">
+
+
+				<thead>
+					<tr>
+						<th class="font-weight-bold col-per-5">شماره </th>
+						<th class="font-weight-bold col-per-20 ">شماره سریال </th>
+						<th class="font-weight-bold col-per-20">شماره برچسپ </th>
+						<th class="font-weight-bold col-per-5">تاریخ انقضا شمسی </th>
+						<th class="font-weight-bold col-per-5">تاریخ انقضا میلادی</th>
+						<th class="font-weight-bold col-per-25">موقعیت گدام</th>
+						<th class="font-weight-bold col-per-25"> عملیه ها </th>
+					</tr>
+				</thead>
+				<tbody formArrayName="itemSpecificationModelList">
+					<tr *ngFor="let item of itemSpecificationModelList.controls| paginate: { itemsPerPage: pageSize, currentPage: page}; let i=index"
+						[formGroupName]="getActualIndex(i)">
+						<td class="kt-padding-0">
+							{{ actualIndex + 1 }}
+						</td>
+						<td class="kt-padding-0">
+							<input type="text" formControlName="serialNumber" class="form-control"
+								[class.invalid]="isDetailControlHasError('serialNumber','required',getFormArrayIndex(i))"
+								placeholder="شماره سریال">
+						</td>
+						<td class="kt-padding-0"><input type="text" formControlName="tagNumber" class="form-control"
+								placeholder="شماره برچسپ">
+						</td>
+						<td class="kt-padding-0">
+							<div>
+								<dp-date-picker dir="rtl" mode="day" formControlName="expirationDateShamsi"
+									theme="dp-material" [config]="dateService.dateConfigShamsi"
+									(keypress)="$event.preventDefault()"
+									[class.invalid]="isDetailControlHasError('expirationDateShamsi','required',getFormArrayIndex(i))"
+									(onChange)="setGregorianDate($event,getFormArrayIndex(i));" #shamsiDate>
+								</dp-date-picker>
+							</div>
+
+						</td>
+						<td class="kt-padding-0">
+							<div>
+								<dp-date-picker dir="rtl" mode="day" theme="dp-material"
+									[config]="dateService.dateConfigGregorian" (keypress)="$event.preventDefault()"
+									[class.invalid]="isDetailControlHasError('expirationDate','required',getFormArrayIndex(i))"
+									(onChange)="setShamsiDate($event,getFormArrayIndex(i));"
+									formControlName="expirationDate" #date>
+								</dp-date-picker>
+							</div>
+
+						</td>
+						<td class="kt-padding-0">
+							<input type="text" formControlName="location" class="form-control"	placeholder="موقعیت گدام">
+						</td>
+						<td class="kt-padding-0">
+							<button (click)="save(getFormArrayIndex(i))" class="btn btn-primary btn-bold">ثبت <i
+									class="fa fa-save"></i></button>
+
+							<button (click)="printBarcode(getFormArrayIndex(i))" type="button" class="btn btn-primary">
+								بارکد <i class="fa fa-barcode"></i>
+							</button>
+
+
+							<button (click)="delete(getFormArrayIndex(i))" type="button"
+								class="btn btn-primary text-danger" id="remove">
+								حذف <i class="flaticon-delete"></i>
+							</button>
+						</td>
+
+					</tr>
+				</tbody>
+
+
+			</table>
+			<pagination-controls (pageChange)="pageChanged($event)" responsive=" true" directionLinks="true"
+				autoHide="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+				screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">></pagination-controls>
+
+			<hr>
+
+		</form>
+	</div>
+
+	<div *ngIf="isPrintable" style="text-align:center" class="col-md-12">
+
+		<div class="pull-left">
+			<button (click)="print()" type="button" class="btn btn-primary btn-bold " printSectionId="print-section"
+				ngxPrint>
+				پرنت <i class="fa fa-print"></i>
+			</button>
+
+			<button (click)="cancel()" type="button" class="btn btn-primary btn-bold  ">
+				بازگشت <i class="fa fa-arrow-left"></i>
+			</button>
+
+		</div>
+
+
+		<div class="barecode-static-width" id="print-section">
+			<ngx-barcode [bc-value]="tagNumber" [bc-display-value]="true" [bc-format]="'CODE128'">
+			</ngx-barcode>
+		</div>
+	</div>
+</div>

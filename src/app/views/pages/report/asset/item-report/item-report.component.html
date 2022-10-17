@@ -1,0 +1,78 @@
+<div>
+	<kt-portlet>
+		<kt-portlet-header [title]="'گزارش اجناس'">
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<div>
+				<div class="kt-form">
+					<legend class="text-bold">جهت دریافت گزارش اجناس باقیمانده از گزینه های ذیل استفاده نمائید</legend>
+					<form [formGroup]="itemSearchForm">
+						<div class="row">
+
+							<div class="form-group col-md-3">
+								<label class="col-form-label">کتگوری</label>
+								<ng-select formControlName="categoryId" [items]="categoryList" bindValue="id"
+									bindLabel="name" (change)="loadItem($event)">
+								</ng-select>
+							</div>
+							<div class="form-group col-md-3">
+								<label class="col-form-label">جنس</label>
+								<ng-select formControlName="itemId" [items]="itemList" bindValue="id" bindLabel="name"
+									(change)="loadItemDetail($event)">
+								</ng-select>
+							</div>
+							<div class="form-group col-md-4">
+								<label class="col-form-label">جزئیات</label>
+
+								<ng-select formControlName="detailId" [virtualScroll]="true" [clearable]="true">
+									<ng-option [value]="item.id" [disabled]="item.disabled"
+										*ngFor="let item of itemDetailList">
+										{{item.nameText}}
+									</ng-option>
+								</ng-select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<button (click)="searchItem()" class="btn btn-primary btn-bold "
+									matTooltip="جستجوی اجناس">جستجو
+									<i class="fa fa-search"></i></button>
+							</div>
+						</div>
+						<hr>
+					</form>
+				</div>
+			</div>
+
+		</kt-portlet-body>
+	</kt-portlet>
+	<div class="panel-body">
+		<!-- <div echarts style="width: 1500px; height:500px;" [options]="options" [merge]="updateOptions"></div> -->
+	</div>
+	<div class="table-responsive">
+		<table class="table  table-bordered table-head-solid table-hover" style="max-height: 500px !important;">
+			<thead>
+				<th class="font-weight-bold">شماره</th>
+				<th class="font-weight-bold">نام جنس</th>
+				<th class="font-weight-bold">تعداد </th>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of itemSearchList; let i = index">
+					<td>{{ i + 1}}</td>
+					<td>{{item.text}}</td>
+					<td>{{item.count}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- <ngx-echarts style="width: 1000px; height:500px;" [options]="chartOption">
+		</ngx-echarts> -->
+
+
+	<!--
+	<ngx-charts-bar-vertical [view]="[1000,400]" [results]="chartItems" [xAxisLabel]="'اجناس'"
+		[legendTitle]="'جدول اجناس'" [yAxisLabel]="'تعداد'" [legend]="true" [showXAxisLabel]="true"
+		[showYAxisLabel]="true" [xAxis]="true" [yAxis]="true" [gradient]="true">
+	</ngx-charts-bar-vertical> -->
+
+</div>
